@@ -513,7 +513,7 @@ html.has-cursor, html.has-cursor *{cursor:none !important;}
 
 /* ===== WECO BRAND SYSTEM 2026 — editorial / spatial identity ===== */
 :root{
-  --signal:#ff5a36;
+  --signal:#e9e4d8;
   --paper:#e9e4d8;
 }
 ::selection{background:var(--signal);color:#10100f;}
@@ -550,7 +550,7 @@ html.has-cursor, html.has-cursor *{cursor:none !important;}
 .btn{border-radius:0;text-transform:uppercase;font-family:var(--label);font-size:11px;letter-spacing:1.8px;}
 .btn-lg{min-width:190px;padding:17px 24px;}
 .btn-cream{background:var(--signal);color:#10100f;}
-.btn-cream:hover{background:#ff7355;}
+.btn-cream:hover{background:#fff;}
 .btn-gl{border-color:rgba(255,255,255,.28);}
 .hero-axis{position:absolute;left:28px;right:28px;bottom:44px;display:flex;justify-content:space-between;
   font-family:var(--label);font-size:8px;letter-spacing:2px;color:rgba(255,255,255,.45);}
