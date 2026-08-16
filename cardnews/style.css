@@ -39,6 +39,9 @@ body{
   --paper-sh:#c9bda6;   /* 일러스트 밝은 면 그림자 */
   --coal:#0f0d0a;
   --red-sh:#b8371f;
+  --figure:#e7dbc6;       /* 배경 위에서 읽히는 실루엣 색 */
+  --figure-skin:#cfc2aa;
+  --figure-hair:#1a1712;
   background:var(--bg);
 }
 
@@ -53,6 +56,9 @@ body{
   --paper-sh:#c6b99f;
   --coal:#2a2621;
   --red-sh:#bb3319;
+  --figure:#2a2621;
+  --figure-skin:#f1e8d9;
+  --figure-hair:#0f0d0a;
   background:var(--bg);
 }
 

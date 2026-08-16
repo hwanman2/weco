@@ -46,6 +46,13 @@ npx http-server . -p 8080     # http://localhost:8080/cardnews/?set=networking
 - 헤드라인은 **줄 단위로 직접 끊는다.** 가로폭을 넘으면 자동으로 글자 크기가 줄어든다.
 - 장수는 `cards` 배열 길이대로 잡히고 `01/07` 표기도 자동 계산된다.
 
+## 지금 들어 있는 원고
+
+| 세트 | 내용 |
+|---|---|
+| `networking` | 네트워킹을 착각하는 사람들 (7장) |
+| `brainpick` | "노하우 좀 알려주세요" 거절법 (7장) |
+
 ## 새 카드셀 만들기
 
 1. `cardnews/sets/새이름.js` 를 만들고 `window.CARD_SET = { ... }` 작성
@@ -60,6 +67,12 @@ npx http-server . -p 8080     # http://localhost:8080/cardnews/?set=networking
 
 재사용 부품: `cup()` 커피잔 · `book()` 책 · `folder()` 폴더 ·
 `person()` 인물 · `ghost()` 점선 인물
+
+**색 고르는 기준**
+- `--figure` : 배경 위에 바로 놓이는 실루엣·팔·화살표 (다크=크림 / 크림=차콜, 자동 반전)
+- `--paper` `--paper-sh` : 종이·컵·서류 같은 밝은 오브젝트
+- `--coal` : 밝은 오브젝트 **위에** 얹는 글자와 아이콘 (양쪽 테마 모두 어두운 색)
+- `--red` `--red-sh` : 포인트
 
 ## 폰트
 

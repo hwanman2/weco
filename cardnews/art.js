@@ -45,17 +45,17 @@ const folder = (x, y, w, h, fill = 'var(--red)') => `
   </g>`;
 
 /* 페이퍼컷 인물 — 머리(위) + 목 + 어깨선 몸통 */
-const person = (cx, by, s = 1, body = 'var(--coal)', skin = 'var(--paper)') => `
+const person = (cx, by, s = 1, body = 'var(--figure)', skin = 'var(--figure-skin)') => `
   <g transform="translate(${cx} ${by}) scale(${s})">
     <rect x="-17" y="-176" width="34" height="38" fill="${skin}"/>
     <path d="M-78 0 v-84 a78 58 0 0 1 156 0 V0z" fill="${body}"/>
     <circle cx="0" cy="-208" r="56" fill="${skin}"/>
-    <path d="M-57 -210 a57 57 0 0 1 114 0 l-17 0 a40 40 0 0 0 -80 0z" fill="${body}"/>
+    <path d="M-57 -210 a57 57 0 0 1 114 0 l-17 0 a40 40 0 0 0 -80 0z" fill="var(--figure-hair)"/>
   </g>`;
 
 /* 점선 실루엣 인물 (사라지는 사람) */
 const ghost = (cx, by, s = 1) => `
-  <g transform="translate(${cx} ${by}) scale(${s})" fill="none" stroke="var(--coal)"
+  <g transform="translate(${cx} ${by}) scale(${s})" fill="none" stroke="var(--figure)"
      stroke-width="11" stroke-dasharray="24 21" stroke-linecap="round" opacity=".45">
     <path d="M-78 0 v-84 a78 58 0 0 1 156 0 V0"/>
     <circle cx="0" cy="-208" r="56"/>
@@ -97,7 +97,7 @@ const ART = {
     <g filter="url(#ds2)">
       <!-- 커피를 내미는 사람 -->
       ${person(168, 580, 1)}
-      <g stroke="var(--coal)" stroke-width="28" stroke-linecap="round">
+      <g stroke="var(--figure)" stroke-width="28" stroke-linecap="round">
         <path d="M232 494 h94"/>
       </g>
       ${cup(392, 548, 0.8)}
@@ -171,7 +171,7 @@ const ART = {
         <rect x="300" y="466" width="100" height="52" rx="10" fill="var(--red)" opacity=".55"/>
       </g>
       <!-- 한 방향 화살표 (점점 흐려짐) -->
-      <g stroke="var(--coal)" fill="none" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+      <g stroke="var(--figure)" fill="none" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
         <g opacity=".9"><path d="M700 322 h-236"/><path d="M506 296 l-42 26 l42 26"/></g>
         <g opacity=".5"><path d="M700 424 h-236"/><path d="M506 398 l-42 26 l42 26"/></g>
         <g opacity=".2"><path d="M700 526 h-236"/><path d="M506 500 l-42 26 l42 26"/></g>
@@ -236,7 +236,7 @@ const ART = {
       ${person(150, 580, 0.92)}
       ${person(750, 580, 0.92)}
       <!-- 서로 뻗은 팔 -->
-      <g stroke="var(--coal)" stroke-width="30" stroke-linecap="round">
+      <g stroke="var(--figure)" stroke-width="30" stroke-linecap="round">
         <path d="M206 498 h116"/>
         <path d="M694 498 h-116"/>
       </g>
@@ -252,6 +252,121 @@ const ART = {
         <path d="M318 588 h264"/>
         <path d="M360 562 l-42 26 l42 26"/>
         <path d="M540 562 l42 26 l-42 26"/>
+      </g>
+    </g>
+  </svg>`,
+
+  /* 08 — 머리에서 지식만 빼가려는 커피 한 잔 */
+  pickBrain: () => `
+  <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet">
+    ${shadow(8)}
+    <g filter="url(#ds8)">
+      <!-- 머리 옆모습 -->
+      <circle cx="220" cy="330" r="152" fill="var(--figure)"/>
+      <rect x="150" y="466" width="140" height="114" fill="var(--figure)"/>
+      <!-- 머릿속 서류 -->
+      <g>
+        <rect x="150" y="256" width="104" height="66" rx="8" fill="var(--figure-hair)" opacity=".5"/>
+        <rect x="168" y="336" width="104" height="66" rx="8" fill="var(--figure-hair)" opacity=".3"/>
+        <rect x="246" y="292" width="104" height="66" rx="8" fill="var(--red)"/>
+      </g>
+      <!-- 빠져나가는 궤적 -->
+      <path d="M366 320 q116 -60 214 22" fill="none" stroke="var(--red)" stroke-width="11"
+            stroke-linecap="round" stroke-dasharray="4 30"/>
+      <path d="M556 306 l32 40 l-50 12" fill="none" stroke="var(--red)" stroke-width="11"
+            stroke-linecap="round" stroke-linejoin="round"/>
+      ${cup(700, 560, 1.15)}
+    </g>
+  </svg>`,
+
+  /* 09 — 되묻기 : 질문을 그대로 돌려준다 */
+  askFirst: () => `
+  <svg viewBox="0 0 900 600" preserveAspectRatio="xMidYMid meet">
+    ${shadow(9)}
+    <g filter="url(#ds9)">
+      <!-- 들어온 질문 -->
+      <g>
+        <rect x="60" y="150" width="330" height="220" rx="30" fill="var(--paper)"/>
+        <path d="M132 366 l14 74 l86 -70z" fill="var(--paper)"/>
+        <text x="225" y="304" text-anchor="middle" font-family="PT" font-weight="900"
+              font-size="150" fill="var(--coal)">?</text>
+      </g>
+      <!-- 되돌려주는 질문 -->
+      <g>
+        <rect x="470" y="228" width="374" height="238" rx="30" fill="var(--red)"/>
+        <path d="M772 462 l-16 82 l-92 -78z" fill="var(--red)"/>
+        <text x="657" y="392" text-anchor="middle" font-family="PT" font-weight="900"
+              font-size="162" fill="var(--paper)">?</text>
+      </g>
+    </g>
+  </svg>`,
+
+  /* 10 — 반복되는 질문은 자료로 넘긴다 */
+  linkOut: () => `
+  <svg viewBox="0 0 900 600" preserveAspectRatio="xMidYMid meet">
+    ${shadow(10)}
+    <g filter="url(#ds10)">
+      <!-- 쌓아둔 자료 -->
+      <g>
+        <rect x="72" y="200" width="230" height="300" rx="14" fill="var(--paper-sh)"/>
+        <rect x="102" y="170" width="230" height="300" rx="14" fill="var(--paper)"/>
+        <g fill="var(--coal)" opacity=".8">
+          <rect x="140" y="216" width="154" height="16" rx="8"/>
+          <rect x="140" y="256" width="120" height="16" rx="8"/>
+          <rect x="140" y="296" width="146" height="16" rx="8"/>
+          <rect x="140" y="336" width="96" height="16" rx="8"/>
+        </g>
+        <rect x="102" y="170" width="230" height="34" rx="14" fill="var(--red)"/>
+      </g>
+      <!-- 링크로 전달 -->
+      <g stroke="var(--red)" stroke-width="15" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M392 322 h214"/>
+        <path d="M560 282 l46 40 l-46 40"/>
+      </g>
+      ${person(760, 500, 0.98)}
+    </g>
+  </svg>`,
+
+  /* 11 — 값을 매기면 진짜 필요한 사람만 남는다 */
+  priceTag: () => `
+  <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet">
+    ${shadow(11)}
+    <g filter="url(#ds11)">
+      <!-- 시간 -->
+      <circle cx="256" cy="330" r="150" fill="none" stroke="var(--figure)" stroke-width="26"/>
+      <g stroke="var(--figure)" stroke-width="22" stroke-linecap="round">
+        <path d="M256 240 v96"/>
+        <path d="M256 336 l68 40"/>
+      </g>
+      <!-- 가격표 -->
+      <g transform="rotate(-12 620 340)">
+        <path d="M470 226 h250 a30 30 0 0 1 30 30 v168 a30 30 0 0 1 -30 30 h-250 l-92 -114z" fill="var(--red)"/>
+        <circle cx="452" cy="340" r="30" fill="var(--paper)"/>
+        <g fill="var(--paper)">
+          <rect x="512" y="292" width="190" height="22" rx="11"/>
+          <rect x="512" y="342" width="140" height="22" rx="11"/>
+        </g>
+      </g>
+    </g>
+  </svg>`,
+
+  /* 12 — 경계를 사이에 둔 관계 */
+  boundary: () => `
+  <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet">
+    ${shadow(12)}
+    <g filter="url(#ds12)">
+      ${person(190, 580, 1)}
+      ${person(710, 580, 1)}
+      <!-- 가운데 경계선 -->
+      <path d="M450 190 V580" stroke="var(--red)" stroke-width="14"
+            stroke-linecap="round" stroke-dasharray="30 26"/>
+      <!-- 경계를 넘어 이어지는 악수 -->
+      <g stroke="var(--figure)" stroke-width="30" stroke-linecap="round">
+        <path d="M252 486 h130"/>
+        <path d="M648 486 h-130"/>
+      </g>
+      <g>
+        <rect x="378" y="452" width="144" height="68" rx="22" fill="var(--red)"/>
       </g>
     </g>
   </svg>`,
