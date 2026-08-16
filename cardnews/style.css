@@ -1,0 +1,167 @@
+/* ===================================================================
+   카드뉴스 템플릿 — 인스타 캐러셀 (1080 x 1350)
+   다크/크림 교차 · 종이 그레인 · 버밀리언 포인트
+   =================================================================== */
+
+@font-face{font-family:'PT';src:url('fonts/Pretendard-Black.subset.woff2') format('woff2');font-weight:900;font-display:block;}
+@font-face{font-family:'PT';src:url('fonts/Pretendard-Bold.subset.woff2') format('woff2');font-weight:700;font-display:block;}
+@font-face{font-family:'PT';src:url('fonts/Pretendard-Medium.subset.woff2') format('woff2');font-weight:500;font-display:block;}
+@font-face{font-family:'PT';src:url('fonts/Pretendard-Regular.subset.woff2') format('woff2');font-weight:400;font-display:block;}
+@font-face{font-family:'BHS';src:url('fonts/BlackHanSans.subset.woff2') format('woff2');font-weight:400;font-display:block;}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  background:#3a3733;
+  display:flex;flex-direction:column;align-items:center;gap:28px;
+  padding:28px 0;
+  font-family:'PT',sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── 카드 캔버스 ───────────────────────────────────────────────── */
+.card{
+  position:relative;
+  width:1080px;height:1350px;
+  overflow:hidden;
+  flex:none;
+  isolation:isolate;
+}
+
+.card[data-theme="dark"]{
+  --bg:#17140f;
+  --ink:#f3ead9;
+  --sub:rgba(243,234,217,.70);
+  --red:#ee4f31;
+  --dim:rgba(243,234,217,.34);
+  --line:rgba(243,234,217,.26);
+  --paper:#e7dbc6;      /* 일러스트 밝은 면 */
+  --paper-sh:#c9bda6;   /* 일러스트 밝은 면 그림자 */
+  --coal:#0f0d0a;
+  --red-sh:#b8371f;
+  background:var(--bg);
+}
+
+.card[data-theme="cream"]{
+  --bg:#f1e8d9;
+  --ink:#1d1a16;
+  --sub:#5a534c;
+  --red:#e8492c;
+  --dim:#a79c8c;
+  --line:rgba(29,26,22,.28);
+  --paper:#e2d6bf;
+  --paper-sh:#c6b99f;
+  --coal:#2a2621;
+  --red-sh:#bb3319;
+  background:var(--bg);
+}
+
+/* ── 종이 질감 ─────────────────────────────────────────────────── */
+.grain,.fiber,.vignette{position:absolute;inset:0;pointer-events:none;}
+
+.grain{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:260px 260px;
+  z-index:5;
+}
+.card[data-theme="dark"] .grain{opacity:.42;mix-blend-mode:overlay;}
+.card[data-theme="cream"] .grain{opacity:.30;mix-blend-mode:multiply;}
+
+/* 굵은 종이 섬유결 */
+.fiber{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='700'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='700' height='700' filter='url(%23f)'/%3E%3C/svg%3E");
+  background-size:700px 700px;
+  z-index:4;
+}
+.card[data-theme="dark"] .fiber{opacity:.20;mix-blend-mode:overlay;}
+.card[data-theme="cream"] .fiber{opacity:.10;mix-blend-mode:multiply;}
+
+.vignette{z-index:6;}
+.card[data-theme="dark"] .vignette{
+  background:radial-gradient(120% 85% at 50% 42%,rgba(0,0,0,0) 42%,rgba(0,0,0,.45) 100%);
+}
+.card[data-theme="cream"] .vignette{
+  background:radial-gradient(120% 85% at 50% 42%,rgba(0,0,0,0) 48%,rgba(70,55,35,.16) 100%);
+}
+
+/* ── 레이아웃 ─────────────────────────────────────────────────── */
+.inner{
+  position:relative;z-index:3;
+  width:100%;height:100%;
+  display:flex;flex-direction:column;align-items:center;
+  padding:120px 76px 96px;
+  text-align:center;
+}
+
+.head{width:100%;flex:none;}
+
+h1{
+  font-weight:900;
+  font-size:96px;
+  line-height:1.20;
+  letter-spacing:-.035em;
+  color:var(--ink);
+  word-break:keep-all;
+}
+.card[data-theme="cream"] h1{
+  font-family:'BHS',sans-serif;
+  font-weight:400;
+  font-size:100px;
+  letter-spacing:-.02em;
+  line-height:1.18;
+  text-shadow:0 5px 16px rgba(70,50,26,.18);
+}
+.card[data-theme="dark"] h1{
+  text-shadow:0 4px 22px rgba(0,0,0,.55);
+}
+h1 .ln{display:block;white-space:nowrap;}
+h1 em{font-style:normal;color:var(--red);}
+
+/* 서브카피 */
+.sub{
+  font-weight:500;
+  font-size:38px;
+  line-height:1.5;
+  letter-spacing:-.02em;
+  color:var(--sub);
+  word-break:keep-all;
+}
+
+/* 커버용: 위아래 헤어라인 사이에 서브카피 */
+.rule-block{
+  margin-top:52px;
+  display:flex;flex-direction:column;align-items:center;gap:26px;
+}
+.rule-block .bar{width:520px;height:1px;background:var(--line);}
+.rule-block .sub{font-size:34px;letter-spacing:.02em;}
+
+/* 일반형: 서브카피만 */
+.sub-only{margin-top:34px;}
+
+/* 짧은 빨강 밑줄 (강조 변형) */
+.tick{width:96px;height:5px;background:var(--red);margin:40px auto 0;border-radius:2px;}
+
+/* ── 일러스트 영역 ─────────────────────────────────────────────── */
+.art{
+  flex:1;
+  width:100%;
+  display:flex;align-items:center;justify-content:center;
+  padding:44px 0 10px;
+  min-height:0;
+}
+.art svg{width:100%;height:100%;max-height:100%;overflow:visible;}
+
+/* ── 페이지 인디케이터 ─────────────────────────────────────────── */
+.page{
+  flex:none;
+  font-weight:700;font-size:44px;letter-spacing:.06em;
+  color:var(--dim);
+}
+.page b{color:var(--red);font-weight:700;}
+
+/* 마지막 카드 브랜드 서명 */
+.sign{
+  flex:none;margin-top:20px;
+  font-weight:500;font-size:26px;letter-spacing:.34em;
+  color:var(--dim);
+}

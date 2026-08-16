@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>카드뉴스 템플릿 — 위코컴퍼니</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<main id="stage"></main>
+
+<script src="art.js"></script>
+<script>
+  /* ?set=networking 처럼 원고 파일을 갈아끼운다 (기본: networking) */
+  (function () {
+    const name = new URLSearchParams(location.search).get('set') || 'networking';
+    document.write('<script src="sets/' + name + '.js"><\/script>');
+  })();
+</script>
+<script src="app.js" defer></script>
+</body>
+</html>
