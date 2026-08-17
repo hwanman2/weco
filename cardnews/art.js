@@ -174,6 +174,23 @@ const mug = (cx, by, s = 1) => `
     <ellipse cx="0" cy="2" rx="62" ry="10" fill="var(--figure)" opacity=".55"/>
   </g>`;
 
+
+/* 말풍선 (꼬리 방향 dir: 'left' | 'right') */
+const bubble = (x, y, w, h, txt, red = false, dir = 'left') => {
+  const fill = red ? 'var(--red)' : 'var(--figure)';
+  const ink = red ? 'var(--figure-skin)' : 'var(--bg)';
+  const tail = dir === 'left'
+    ? `M${x + 40} ${y + h} l-6 62 l72 -62z`
+    : `M${x + w - 40} ${y + h} l6 62 l-72 -62z`;
+  return `
+  <g>
+    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="28" fill="${fill}"/>
+    <path d="${tail}" fill="${fill}"/>
+    <text x="${x + w / 2}" y="${y + h * 0.5 + 26}" text-anchor="middle"
+          font-family="PT" font-weight="900" font-size="72" fill="${ink}">${txt}</text>
+  </g>`;
+};
+
 const ART = {
 
   /* 01 — 커피 한 잔 내미는 사람 vs 사람 키만 한 서류탑 (커버) */
@@ -295,95 +312,71 @@ const ART = {
     </g></g>
   </svg>`,
 
-  /* 08 — 머리에서 지식만 빼가려는 커피 한 잔 */
+  /* 08 — 커피 한 잔 내밀고 지식만 빼가려는 요청 (커버) */
   pickBrain: () => `
-  <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet">
+  <svg viewBox="0 0 1000 640" preserveAspectRatio="xMidYMid meet">
     ${shadow(8)}
     <g filter="url(#ds8)"><g filter="url(#rg8)">
-      <!-- 머리 옆모습 -->
-      <circle cx="220" cy="330" r="152" fill="var(--figure)"/>
-      <rect x="150" y="466" width="140" height="114" fill="var(--figure)"/>
-      <!-- 머릿속 서류 -->
-      <g>
-        <rect x="150" y="256" width="104" height="66" rx="8" fill="var(--figure-hair)" opacity=".5"/>
-        <rect x="168" y="336" width="104" height="66" rx="8" fill="var(--figure-hair)" opacity=".3"/>
-        <rect x="246" y="292" width="104" height="66" rx="8" fill="var(--red)"/>
-      </g>
-      <!-- 빠져나가는 궤적 -->
-      <path d="M366 320 q116 -60 214 22" fill="none" stroke="var(--red)" stroke-width="11"
-            stroke-linecap="round" stroke-dasharray="4 30"/>
-      <path d="M556 306 l32 40 l-50 12" fill="none" stroke="var(--red)" stroke-width="11"
-            stroke-linecap="round" stroke-linejoin="round"/>
-      ${cup(700, 560, 1.15)}
+      ${figure('asker', 230, 640, 520)}
+      ${mug(392, 372, 0.7)}
+      <path d="M690 236 q-110 -30 -206 74" fill="none" stroke="var(--red)"
+            stroke-width="12" stroke-linecap="round" stroke-dasharray="4 34"/>
+      <path d="M498 274 l-14 44 l48 8" fill="none" stroke="var(--red)"
+            stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+      ${figure('expert', 800, 640, 520, true)}
+      ${doc(690, 168, 132, 96)}
     </g></g>
   </svg>`,
 
-  /* 09 — 되묻기 : 질문을 그대로 돌려준다 */
+  /* 09 — 되묻기 : 용건을 먼저 묻는다 */
   askFirst: () => `
-  <svg viewBox="0 0 900 600" preserveAspectRatio="xMidYMid meet">
+  <svg viewBox="0 0 1000 840" preserveAspectRatio="xMidYMid meet">
     ${shadow(9)}
     <g filter="url(#ds9)"><g filter="url(#rg9)">
-      <!-- 들어온 질문 -->
-      <g>
-        <rect x="60" y="150" width="330" height="220" rx="30" fill="var(--paper)"/>
-        <path d="M132 366 l14 74 l86 -70z" fill="var(--paper)"/>
-        <text x="225" y="304" text-anchor="middle" font-family="PT" font-weight="900"
-              font-size="150" fill="var(--coal)">?</text>
-      </g>
-      <!-- 되돌려주는 질문 -->
-      <g>
-        <rect x="470" y="228" width="374" height="238" rx="30" fill="var(--red)"/>
-        <path d="M772 462 l-16 82 l-92 -78z" fill="var(--red)"/>
-        <text x="657" y="392" text-anchor="middle" font-family="PT" font-weight="900"
-              font-size="162" fill="var(--paper)">?</text>
-      </g>
+      ${bubble(70, 118, 280, 176, '?', false, 'left')}
+      ${figure('asker', 250, 840, 500)}
+      ${bubble(640, 108, 300, 186, '?', true, 'right')}
+      ${figure('listener', 790, 840, 500, true)}
     </g></g>
   </svg>`,
 
   /* 10 — 반복되는 질문은 자료로 넘긴다 */
   linkOut: () => `
-  <svg viewBox="0 0 900 600" preserveAspectRatio="xMidYMid meet">
+  <svg viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid meet">
     ${shadow(10)}
     <g filter="url(#ds10)"><g filter="url(#rg10)">
-      <!-- 쌓아둔 자료 -->
+      ${figure('pointingup', 230, 620, 500)}
       <g>
-        <rect x="72" y="200" width="230" height="300" rx="14" fill="var(--paper-sh)"/>
-        <rect x="102" y="170" width="230" height="300" rx="14" fill="var(--paper)"/>
-        <g fill="var(--coal)" opacity=".8">
-          <rect x="140" y="216" width="154" height="16" rx="8"/>
-          <rect x="140" y="256" width="120" height="16" rx="8"/>
-          <rect x="140" y="296" width="146" height="16" rx="8"/>
-          <rect x="140" y="336" width="96" height="16" rx="8"/>
+        <rect x="430" y="180" width="270" height="330" rx="14" fill="var(--figure)"/>
+        <rect x="430" y="180" width="270" height="40" rx="14" fill="var(--red)"/>
+        <g fill="var(--bg)" opacity=".75">
+          <rect x="470" y="262" width="186" height="18" rx="9"/>
+          <rect x="470" y="306" width="140" height="18" rx="9"/>
+          <rect x="470" y="350" width="172" height="18" rx="9"/>
+          <rect x="470" y="394" width="112" height="18" rx="9"/>
         </g>
-        <rect x="102" y="170" width="230" height="34" rx="14" fill="var(--red)"/>
       </g>
-      <!-- 링크로 전달 -->
-      <g stroke="var(--red)" stroke-width="15" fill="none" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M392 322 h214"/>
-        <path d="M560 282 l46 40 l-46 40"/>
+      <g stroke="var(--red)" stroke-width="15" fill="none"
+         stroke-linecap="round" stroke-linejoin="round">
+        <path d="M740 344 h130"/>
+        <path d="M828 306 l44 38 l-44 38"/>
       </g>
-      ${person(760, 500, 0.98)}
     </g></g>
   </svg>`,
 
   /* 11 — 값을 매기면 진짜 필요한 사람만 남는다 */
   priceTag: () => `
-  <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet">
+  <svg viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid meet">
     ${shadow(11)}
     <g filter="url(#ds11)"><g filter="url(#rg11)">
-      <!-- 시간 -->
-      <circle cx="256" cy="330" r="150" fill="none" stroke="var(--figure)" stroke-width="26"/>
-      <g stroke="var(--figure)" stroke-width="22" stroke-linecap="round">
-        <path d="M256 240 v96"/>
-        <path d="M256 336 l68 40"/>
-      </g>
-      <!-- 가격표 -->
-      <g transform="rotate(-12 620 340)">
-        <path d="M470 226 h250 a30 30 0 0 1 30 30 v168 a30 30 0 0 1 -30 30 h-250 l-92 -114z" fill="var(--red)"/>
-        <circle cx="452" cy="340" r="30" fill="var(--paper)"/>
-        <g fill="var(--paper)">
-          <rect x="512" y="292" width="190" height="22" rx="11"/>
-          <rect x="512" y="342" width="140" height="22" rx="11"/>
+      ${figure('expert', 240, 620, 500)}
+      <g transform="rotate(-10 660 330)">
+        <path d="M520 216 h250 a30 30 0 0 1 30 30 v168 a30 30 0 0 1 -30 30 h-250 l-92 -114z"
+              fill="var(--red)"/>
+        <circle cx="502" cy="330" r="30" fill="var(--bg)"/>
+        <g fill="var(--figure-skin)">
+          <rect x="562" y="282" width="190" height="24" rx="12"/>
+          <rect x="562" y="336" width="140" height="24" rx="12"/>
         </g>
       </g>
     </g></g>
@@ -391,22 +384,13 @@ const ART = {
 
   /* 12 — 경계를 사이에 둔 관계 */
   boundary: () => `
-  <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet">
+  <svg viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid meet">
     ${shadow(12)}
     <g filter="url(#ds12)"><g filter="url(#rg12)">
-      ${person(190, 580, 1)}
-      ${person(710, 580, 1)}
-      <!-- 가운데 경계선 -->
-      <path d="M450 190 V580" stroke="var(--red)" stroke-width="14"
-            stroke-linecap="round" stroke-dasharray="30 26"/>
-      <!-- 경계를 넘어 이어지는 악수 -->
-      <g stroke="var(--figure)" stroke-width="30" stroke-linecap="round">
-        <path d="M252 486 h130"/>
-        <path d="M648 486 h-130"/>
-      </g>
-      <g>
-        <rect x="378" y="452" width="144" height="68" rx="22" fill="var(--red)"/>
-      </g>
+      ${figure('giver', 230, 620, 520)}
+      <path d="M500 120 V620" stroke="var(--red)" stroke-width="16"
+            stroke-linecap="round" stroke-dasharray="34 30"/>
+      ${figure('pointingup', 780, 620, 520, true)}
     </g></g>
   </svg>`,
 
