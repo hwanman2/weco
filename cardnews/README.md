@@ -53,7 +53,7 @@ npx http-server . -p 8080     # http://localhost:8080/cardnews/?set=networking
 | 세트 | 내용 |
 |---|---|
 | `networking` | 네트워킹을 착각하는 사람들 (7장) |
-| `brainpick` | "노하우 좀 알려주세요" 거절법 (7장) |
+| `brainpick` | "노하우 좀 알려주세요" 거절법 (8장) |
 | `givefirst-en` | Give first — your knowledge has a price (영문 7장) |
 | `fifthtime` | 다섯 번째 "잠깐만 물어봐도 돼요?" (7장) |
 | `coffeechat` | 커피챗 요청, 다 받아주고 계신가요? (7장) |

@@ -41,7 +41,14 @@ window.CARD_SET = {
       sub: '값을 붙이는 순간 진짜 필요한 사람만 남는다.',
     },
     {
-      theme: 'dark', layout: 'standard', art: 'boundary',
+      // 영상의 핵심 논지를 한국어로 다시 쓴 카드.
+      // 02번 기울어진 저울과 짝이 되도록 수평 저울을 쓴다.
+      theme: 'dark', layout: 'standard', art: 'balanced',
+      lines: ['내가 값을 매기지 않으면', '아무도 <em>값을 쳐주지</em> 않는다'],
+      sub: '내 시간의 가격은 내가 먼저 정하는 것이다.',
+    },
+    {
+      theme: 'cream', layout: 'standard', art: 'boundary',
       lines: ['거절은 관계를 끊는 게 아니라', '<em>기준</em>을 알려주는 것이다'],
       sub: '기준이 있는 사람에게 사람이 모인다.',
     },

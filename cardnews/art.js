@@ -394,6 +394,34 @@ const ART = {
     </g></g>
   </svg>`,
 
+  /* 17 — 수평을 되찾은 저울 : 시간에 값을 매기면 균형이 맞는다
+         (02번 기울어진 저울과 짝을 이룬다) */
+  balanced: () => `
+  <svg viewBox="0 0 900 640" preserveAspectRatio="xMidYMid meet">
+    ${shadow(17)}
+    <g filter="url(#ds17)"><g filter="url(#rg17)">
+      <path d="M356 600 h188 l-30 -46 h-128z" fill="var(--figure)"/>
+      <rect x="330" y="596" width="240" height="22" rx="11" fill="var(--figure)"/>
+      <rect x="434" y="250" width="32" height="312" rx="8" fill="var(--figure)"/>
+      <rect x="140" y="238" width="620" height="24" rx="12" fill="var(--figure)"/>
+      <circle cx="450" cy="250" r="26" fill="var(--figure-hair)" opacity=".45"/>
+      <!-- 왼쪽 : 시간 -->
+      <rect x="70" y="262" width="180" height="16" rx="8" fill="var(--figure)" opacity=".8"/>
+      <g transform="translate(160 176)">
+        <circle cx="0" cy="0" r="78" fill="none" stroke="var(--figure)" stroke-width="18"/>
+        <g stroke="var(--figure)" stroke-width="15" stroke-linecap="round">
+          <path d="M0 -46 v48"/>
+          <path d="M0 2 l36 22"/>
+        </g>
+      </g>
+      <!-- 오른쪽 : 값 -->
+      <rect x="650" y="262" width="180" height="16" rx="8" fill="var(--figure)" opacity=".8"/>
+      ${doc(668, 118, 144, 40)}
+      ${doc(660, 162, 160, 40)}
+      ${doc(672, 206, 140, 40)}
+    </g></g>
+  </svg>`,
+
   /* 13 — 사방에서 들이미는 요청, 가운데서 받아내는 사람 (커버용) */
   swamped: () => `
   <svg viewBox="0 0 980 620" preserveAspectRatio="xMidYMid meet">
