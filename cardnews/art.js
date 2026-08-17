@@ -120,7 +120,7 @@ const ART = {
   </svg>`,
 
   /* 03 — 모래시계: 아래에 쌓인 돈과 시간 */
-  hourglass: () => `
+  hourglass: (c = {}) => `
   <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet">
     ${shadow(3)}
     <g filter="url(#ds3)">
@@ -143,12 +143,12 @@ const ART = {
       <g transform="rotate(-8 690 210)">
         <rect x="612" y="168" width="184" height="84" rx="14" fill="var(--paper)"/>
         <text x="704" y="226" text-anchor="middle" font-family="PT" font-weight="900"
-              font-size="54" fill="var(--coal)">5년</text>
+              font-size="54" fill="var(--coal)">${(c.tags || ['5년', '10년'])[0]}</text>
       </g>
       <g transform="rotate(7 200 380)">
         <rect x="112" y="338" width="184" height="84" rx="14" fill="var(--paper)"/>
         <text x="204" y="396" text-anchor="middle" font-family="PT" font-weight="900"
-              font-size="54" fill="var(--coal)">10년</text>
+              font-size="54" fill="var(--coal)">${(c.tags || ['5년', '10년'])[1]}</text>
       </g>
     </g>
   </svg>`,

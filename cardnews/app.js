@@ -36,7 +36,7 @@
           <h1>${headline}</h1>
           ${subBlock}
         </div>
-        <div class="art">${window.ART[c.art]()}</div>
+        <div class="art">${window.ART[c.art](c)}</div>
         <div class="page"><b>${String(i + 1).padStart(2, '0')}</b>/${total}</div>
         ${c.sign ? `<div class="sign">${c.sign}</div>` : ''}
       </div>`;
