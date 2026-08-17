@@ -24,8 +24,13 @@
     } else if (c.layout === 'tick') {
       subBlock = `<div class="tick"></div><p class="sub sub-only">${c.sub}</p>`;
     } else {
-      subBlock = `<p class="sub sub-only">${c.sub}</p>`;
+      subBlock = c.sub ? `<p class="sub sub-only">${c.sub}</p>` : '';
     }
+
+    /* 인용문 목록 (질문이 쏟아지는 장면 등) */
+    const listBlock = c.items
+      ? `<ul class="qs">${c.items.map((t) => `<li>${t}</li>`).join('')}</ul>`
+      : '';
 
     el.innerHTML = `
       <div class="fiber"></div>
@@ -36,7 +41,8 @@
           <h1>${headline}</h1>
           ${subBlock}
         </div>
-        <div class="art">${window.ART[c.art](c)}</div>
+        ${listBlock}
+        ${c.art ? `<div class="art">${window.ART[c.art](c)}</div>` : ''}
         <div class="page"><b>${String(i + 1).padStart(2, '0')}</b>/${total}</div>
         ${c.sign ? `<div class="sign">${c.sign}</div>` : ''}
       </div>`;

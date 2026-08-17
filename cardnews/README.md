@@ -43,6 +43,8 @@ npx http-server . -p 8080     # http://localhost:8080/cardnews/?set=networking
 }
 ```
 
+- `items: ['질문1', '질문2', ...]` 를 넣으면 인용문 목록 카드가 된다.
+  `art: null` 로 두면 그림 없이 글만 채운다.
 - 일부 그림은 원고에서 라벨을 바꿀 수 있다. 예) `art: 'hourglass'` 에
   `tags: ['30분', '또 30분']` 을 함께 주면 모래시계 옆 태그가 바뀐다.
 - 헤드라인은 **줄 단위로 직접 끊는다.** 가로폭을 넘으면 자동으로 글자 크기가 줄어든다.
@@ -57,6 +59,7 @@ npx http-server . -p 8080     # http://localhost:8080/cardnews/?set=networking
 | `givefirst-en` | Give first — your knowledge has a price (영문 7장) |
 | `fifthtime` | 다섯 번째 "잠깐만 물어봐도 돼요?" (7장) |
 | `coffeechat` | 커피챗 요청, 다 받아주고 계신가요? (7장) |
+| `pickyourbrain` | Pick Your Brain — 네트워킹과 지식 구걸 (9장) |
 
 ## 새 카드셀 만들기
 
