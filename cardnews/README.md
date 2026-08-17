@@ -39,7 +39,7 @@ npx http-server . -p 8080     # http://localhost:8080/cardnews/?set=networking
   art: 'scale',             // art.js 의 ART 키
   lines: ['커피 한 잔에', '<em>몇 년의 경험</em>이 넘어올까?'],   // <em> 안이 빨강
   sub: '네트워킹을 착각하는 사람들',
-  sign: '위코컴퍼니',        // 있으면 하단에 브랜드 서명 (보통 마지막 장만)
+  // sign: '브랜드명',      // 넣으면 하단에 서명이 붙는다 (기본은 없음)
 }
 ```
 
@@ -53,6 +53,7 @@ npx http-server . -p 8080     # http://localhost:8080/cardnews/?set=networking
 | `networking` | 네트워킹을 착각하는 사람들 (7장) |
 | `brainpick` | "노하우 좀 알려주세요" 거절법 (7장) |
 | `givefirst-en` | Give first — your knowledge has a price (영문 7장) |
+| `fifthtime` | 다섯 번째 "잠깐만 물어봐도 돼요?" (7장) |
 
 ## 새 카드셀 만들기
 

@@ -45,7 +45,6 @@ window.CARD_SET = {
       theme: 'dark', layout: 'standard', art: 'boundary',
       lines: ['A no is not a closed door', 'it is your <em>terms</em>'],
       sub: 'People come back to those who have terms.',
-      sign: 'WECO COMPANY',
     },
   ],
 };

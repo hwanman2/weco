@@ -44,7 +44,6 @@ window.CARD_SET = {
       theme: 'dark', layout: 'standard', art: 'exchange',
       lines: ['얻으러 가지 말고', '<em>줄 것을 들고</em> 가라'],
       sub: '그때부터 네트워킹이 된다.',
-      sign: '위코컴퍼니',
     },
   ],
 };

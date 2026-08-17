@@ -44,7 +44,6 @@ window.CARD_SET = {
       theme: 'dark', layout: 'standard', art: 'boundary',
       lines: ['거절은 관계를 끊는 게 아니라', '<em>기준</em>을 알려주는 것이다'],
       sub: '기준이 있는 사람에게 사람이 모인다.',
-      sign: '위코컴퍼니',
     },
   ],
 };
