@@ -442,6 +442,186 @@ const ART = {
     </g></g>
   </svg>`,
 
+  /* ── 오프라인 매장 마케팅 편 ─────────────────────────────────── */
+
+  /* 19 — 새로 연 가게 : 신규 자체가 마케팅이다 */
+  storefront: () => `
+  <svg viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid meet">
+    ${shadow(19)}
+    <g filter="url(#ds19)"><g filter="url(#rg19)">
+      <rect x="230" y="200" width="540" height="380" rx="10" fill="var(--figure)"/>
+      <rect x="200" y="150" width="600" height="66" rx="12" fill="var(--red)"/>
+      <g fill="var(--figure-skin)" opacity=".85">
+        <rect x="260" y="172" width="190" height="22" rx="11"/>
+        <rect x="470" y="172" width="110" height="22" rx="11"/>
+      </g>
+      <!-- 차양 -->
+      <path d="M200 216 h600 l-40 74 h-520z" fill="var(--red-sh)"/>
+      <!-- 창과 문 -->
+      <rect x="276" y="330" width="180" height="150" rx="8" fill="var(--bg)" opacity=".55"/>
+      <rect x="560" y="330" width="150" height="250" rx="8" fill="var(--bg)" opacity=".75"/>
+      <circle cx="586" cy="456" r="10" fill="var(--figure)"/>
+      <!-- OPEN 깃발 -->
+      <g transform="rotate(-12 830 300)">
+        <rect x="820" y="250" width="12" height="180" rx="6" fill="var(--figure)"/>
+        <path d="M832 254 h130 l-30 40 l30 40 h-130z" fill="var(--red)"/>
+      </g>
+      ${figure('guest', 130, 580, 330)}
+    </g></g>
+  </svg>`,
+
+  /* 20 — 한계 매출 : 올라가다 눕는 그래프 */
+  plateau: () => `
+  <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet">
+    ${shadow(20)}
+    <g filter="url(#ds20)"><g filter="url(#rg20)">
+      <path d="M110 520 H900" stroke="var(--figure)" stroke-width="14" stroke-linecap="round"/>
+      <path d="M110 520 V90" stroke="var(--figure)" stroke-width="14" stroke-linecap="round"/>
+      <!-- 매출 곡선 : 오르다 눕는다 -->
+      <path d="M140 480 C 280 470, 330 200, 470 180 C 620 160, 740 172, 880 168"
+            fill="none" stroke="var(--red)" stroke-width="26" stroke-linecap="round"/>
+      <!-- 한계선 -->
+      <path d="M150 150 H900" stroke="var(--figure)" stroke-width="8"
+            stroke-dasharray="26 22" stroke-linecap="round" opacity=".65"/>
+      <!-- 계속 붓는 마케팅비 -->
+      <g fill="var(--figure)" opacity=".9">
+        <rect x="560" y="330" width="60" height="170" rx="8"/>
+        <rect x="650" y="290" width="60" height="210" rx="8"/>
+        <rect x="740" y="250" width="60" height="250" rx="8"/>
+        <rect x="830" y="215" width="60" height="285" rx="8"/>
+      </g>
+    </g></g>
+  </svg>`,
+
+  /* 21 — 릴스 : 조회수는 오르는데 */
+  phoneReels: () => `
+  <svg viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid meet">
+    ${shadow(21)}
+    <g filter="url(#ds21)"><g filter="url(#rg21)">
+      <rect x="380" y="40" width="300" height="540" rx="40" fill="var(--figure)"/>
+      <rect x="404" y="76" width="252" height="470" rx="22" fill="var(--bg)"/>
+      <path d="M500 240 l100 58 l-100 58z" fill="var(--red)"/>
+      <g fill="var(--figure)" opacity=".55">
+        <rect x="440" y="420" width="150" height="16" rx="8"/>
+        <rect x="440" y="452" width="100" height="16" rx="8"/>
+      </g>
+      <!-- 올라가는 조회수, 그러나 그뿐 -->
+      <g stroke="var(--red)" stroke-width="14" fill="none" stroke-linecap="round">
+        <path d="M300 300 l-70 -70"/>
+        <path d="M230 230 l0 46 M230 230 l46 0"/>
+        <path d="M760 300 l70 -70"/>
+        <path d="M830 230 l0 46 M830 230 l-46 0"/>
+      </g>
+      <g fill="var(--figure)" opacity=".35">
+        <circle cx="250" cy="440" r="26"/>
+        <circle cx="790" cy="430" r="20"/>
+        <circle cx="300" cy="120" r="18"/>
+      </g>
+    </g></g>
+  </svg>`,
+
+  /* 22 — 제철 : 네 칸 중 지금 이 한 칸 */
+  season: () => `
+  <svg viewBox="0 0 1000 560" preserveAspectRatio="xMidYMid meet">
+    ${shadow(22)}
+    <g filter="url(#ds22)"><g filter="url(#rg22)">
+      <g fill="var(--figure)" opacity=".38">
+        <rect x="60" y="120" width="200" height="300" rx="16"/>
+        <rect x="540" y="120" width="200" height="300" rx="16"/>
+        <rect x="780" y="120" width="200" height="300" rx="16"/>
+      </g>
+      <rect x="300" y="80" width="200" height="380" rx="16" fill="var(--red)"/>
+      <g fill="var(--figure-skin)">
+        <rect x="340" y="130" width="120" height="20" rx="10"/>
+        <circle cx="400" cy="280" r="70"/>
+      </g>
+      <path d="M400 210 q30 -46 66 -50 q-8 42 -50 58z" fill="var(--figure)"/>
+    </g></g>
+  </svg>`,
+
+  /* 23 — 매장이 크면 고정비도 크다 */
+  bigStore: () => `
+  <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet">
+    ${shadow(23)}
+    <g filter="url(#ds23)"><g filter="url(#rg23)">
+      <!-- 작은 가게 -->
+      <rect x="90" y="380" width="220" height="180" rx="10" fill="var(--figure)"/>
+      <path d="M70 380 h260 l-40 -70 h-180z" fill="var(--figure)"/>
+      <rect x="150" y="450" width="100" height="110" rx="8" fill="var(--bg)" opacity=".6"/>
+      <!-- 큰 매장 -->
+      <rect x="470" y="140" width="450" height="420" rx="12" fill="var(--figure)"/>
+      <path d="M440 140 h510 l-60 -80 h-390z" fill="var(--figure)"/>
+      <g fill="var(--bg)" opacity=".55">
+        <rect x="520" y="210" width="120" height="110" rx="8"/>
+        <rect x="670" y="210" width="120" height="110" rx="8"/>
+        <rect x="520" y="360" width="120" height="110" rx="8"/>
+        <rect x="670" y="360" width="120" height="110" rx="8"/>
+      </g>
+      <!-- 고정비 화살표 : 크기에 비례해 커진다 -->
+      <g stroke="var(--red)" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M360 520 v-90"/>
+        <path d="M336 452 l24 -24 l24 24"/>
+        <path d="M400 520 V180"/>
+        <path d="M372 208 l28 -28 l28 28"/>
+      </g>
+    </g></g>
+  </svg>`,
+
+  /* 24 — 잘되는 매장 뒤의 판 */
+  building: () => `
+  <svg viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid meet">
+    ${shadow(24)}
+    <g filter="url(#ds24)"><g filter="url(#rg24)">
+      <rect x="330" y="60" width="340" height="520" rx="12" fill="var(--figure)"/>
+      <g fill="var(--bg)" opacity=".5">
+        <rect x="370" y="110" width="110" height="90" rx="8"/>
+        <rect x="520" y="110" width="110" height="90" rx="8"/>
+        <rect x="370" y="230" width="110" height="90" rx="8"/>
+        <rect x="520" y="230" width="110" height="90" rx="8"/>
+        <rect x="370" y="350" width="110" height="90" rx="8"/>
+        <rect x="520" y="350" width="110" height="90" rx="8"/>
+      </g>
+      <rect x="330" y="470" width="340" height="110" rx="8" fill="var(--red)"/>
+      <g fill="var(--figure-skin)" opacity=".9">
+        <rect x="380" y="510" width="160" height="20" rx="10"/>
+      </g>
+      ${figure('expert', 160, 620, 380)}
+      ${figure('senior', 850, 620, 380, true)}
+    </g></g>
+  </svg>`,
+
+  /* 25 — 마케팅에서 컨설팅으로 */
+  pivot: () => `
+  <svg viewBox="0 0 1000 560" preserveAspectRatio="xMidYMid meet">
+    ${shadow(25)}
+    <g filter="url(#ds25)"><g filter="url(#rg25)">
+      <!-- 확성기 -->
+      <g opacity=".45">
+        <path d="M120 260 h90 l150 -110 v300 l-150 -110 h-90 a30 30 0 0 1 -30 -30 v-20
+                 a30 30 0 0 1 30 -30z" fill="var(--figure)"/>
+        <g stroke="var(--figure)" stroke-width="12" stroke-linecap="round" fill="none">
+          <path d="M400 220 h50"/><path d="M400 300 h50"/>
+        </g>
+      </g>
+      <!-- 화살표 -->
+      <g stroke="var(--red)" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M500 280 h110"/>
+        <path d="M574 244 l40 36 l-40 36"/>
+      </g>
+      <!-- 도면 -->
+      <g>
+        <rect x="660" y="130" width="300" height="300" rx="12" fill="var(--figure)"/>
+        <g stroke="var(--bg)" stroke-width="10" fill="none" opacity=".7">
+          <rect x="700" y="176" width="100" height="90"/>
+          <rect x="820" y="176" width="100" height="150"/>
+          <rect x="700" y="300" width="220" height="86"/>
+          <path d="M700 266 h100"/>
+        </g>
+        <circle cx="820" cy="300" r="16" fill="var(--red)"/>
+      </g>
+    </g></g>
+  </svg>`,
+
   /* 13 — 사방에서 들이미는 요청, 가운데서 받아내는 사람 (커버용) */
   swamped: () => `
   <svg viewBox="0 0 980 620" preserveAspectRatio="xMidYMid meet">

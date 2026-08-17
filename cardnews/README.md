@@ -61,6 +61,7 @@ npx http-server . -p 8080     # http://localhost:8080/cardnews/?set=networking
 | `coffeechat` | 커피챗 요청, 다 받아주고 계신가요? (7장) |
 | `pickyourbrain` | Pick Your Brain — 네트워킹과 지식 구걸 (9장) |
 | `pickyourbrain-short` | 같은 원문 7장 압축본 (A/B용) |
+| `offline-marketing` | 오프라인 매장 마케팅하며 알게 된 것 (9장) |
 
 ## 새 카드셀 만들기
 
