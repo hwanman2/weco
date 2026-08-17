@@ -111,6 +111,12 @@ const FIGURES = {
   'walkingaway':{ head: 'Afro',       torso: 'Hoodie',          bottom: 'SkinnyJeansWalk' },
   'expert':     { head: 'ShortBeard', torso: 'LabCoat',         bottom: 'SweatPants' },
   'pointingup': { head: 'Curly',      torso: 'PointingUp',      bottom: 'SkinnyJeans' },
+  'holder':     { head: 'Chongo',     torso: 'TrenchCoat',      bottom: 'BaggyPants' },
+  'offering':   { head: 'Caesar',     torso: 'PointingForward', bottom: 'SweatPants' },
+  'giver':      { head: 'Wavy',       torso: 'Hoodie',          bottom: 'Shorts' },
+  'thinker':    { head: 'Rad',        torso: 'TurtleNeck',      bottom: 'Skirt' },
+  'guest':      { head: 'Top',        torso: 'Jacket2',         bottom: 'SkinnyJeans' },
+  'senior':     { head: 'Airy',       torso: 'LongSleeve',      bottom: 'Skirt' },
 };
 
 let n = 0;

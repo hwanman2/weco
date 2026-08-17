@@ -136,197 +136,161 @@ const figure = (name, cx, by, h = 460, flip = false) => {
   return `<g transform="translate(${cx} ${by}) scale(${flip ? -s : s} ${s}) translate(${-box.w / 2} ${-box.h})">${art}</g>`;
 };
 
+
+/* ── 납작한 소품 : humaaans 의 평면 스타일에 맞춘다 ─────────────── */
+
+/* 서류철 한 권 */
+const doc = (x, y, w, h, red = true) => `
+  <g>
+    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4"
+          fill="${red ? 'var(--red)' : 'var(--figure)'}"/>
+    <rect x="${x + w * 0.14}" y="${y + h * 0.34}" width="${w * 0.6}" height="${Math.max(4, h * 0.14)}"
+          rx="3" fill="var(--figure-skin)" opacity=".75"/>
+  </g>`;
+
+/* 서류 더미 (바닥 by 에서 위로 n 칸) */
+const docStack = (cx, by, w, n, gap = 30) => {
+  let out = '';
+  for (let i = 0; i < n; i += 1) {
+    const jitter = (i % 3 - 1) * 14;
+    out += doc(cx - w / 2 + jitter, by - (i + 1) * gap, w, gap - 6, true);
+  }
+  return `<g>${out}</g>`;
+};
+
+/* 상자 */
+const box = (x, y, w, h) => `
+  <g>
+    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6" fill="var(--red)"/>
+    <rect x="${x}" y="${y}" width="${w}" height="${h * 0.26}" rx="6" fill="var(--red-sh)"/>
+  </g>`;
+
+/* 납작한 커피잔 */
+const mug = (cx, by, s = 1) => `
+  <g transform="translate(${cx} ${by}) scale(${s})">
+    <rect x="-46" y="-70" width="92" height="70" rx="10" fill="var(--figure)"/>
+    <rect x="-46" y="-70" width="92" height="16" rx="8" fill="var(--red)"/>
+    <path d="M46 -56 a26 26 0 0 1 0 44" stroke="var(--figure)" stroke-width="12" fill="none"/>
+    <ellipse cx="0" cy="2" rx="62" ry="10" fill="var(--figure)" opacity=".55"/>
+  </g>`;
+
 const ART = {
 
-  /* 01 — 저울: 커피 한 잔 vs 몇 년의 경험 */
+  /* 01 — 커피 한 잔 내미는 사람 vs 사람 키만 한 서류탑 (커버) */
   scale: () => `
-  <svg viewBox="0 0 900 640" preserveAspectRatio="xMidYMid meet">
+  <svg viewBox="0 0 1000 660" preserveAspectRatio="xMidYMid meet">
     ${shadow(1)}
     <g filter="url(#ds1)"><g filter="url(#rg1)">
-      <!-- 받침 -->
-      <path d="M356 600 h188 l-30 -46 h-128z" fill="var(--paper)"/>
-      <rect x="330" y="596" width="240" height="22" rx="11" fill="var(--paper)"/>
-      <rect x="434" y="262" width="32" height="300" rx="8" fill="var(--paper)"/>
-      <!-- 빔 (13도 기울어짐 : 왼쪽↑ 오른쪽↓) -->
-      <g transform="rotate(13 450 250)">
-        <rect x="140" y="238" width="620" height="24" rx="12" fill="var(--paper)"/>
-        <circle cx="450" cy="250" r="26" fill="var(--paper-sh)"/>
-      </g>
-      <!-- 왼쪽(높은 쪽) 트레이 : 커피 한 잔 -->
-      <rect x="72" y="176" width="176" height="16" rx="8" fill="var(--paper-sh)"/>
-      ${cup(160, 176, 0.86)}
-      <!-- 오른쪽(무거운 쪽) 트레이 : 쌓인 책 -->
-      <rect x="640" y="312" width="204" height="16" rx="8" fill="var(--paper-sh)"/>
-      ${book(742, 312, 196, 34)}
-      ${book(742, 278, 210, 32)}
-      ${book(742, 246, 184, 34)}
-      ${book(742, 212, 204, 32)}
-      ${book(742, 180, 190, 34)}
+      ${figure('offering', 250, 660, 520)}
+      ${mug(392, 352, 0.72)}
+      ${docStack(770, 660, 210, 13, 46)}
     </g></g>
   </svg>`,
 
-  /* 02 — 커피는 건네지지만 지식은 넘어오지 않는다 */
+  /* 02 — 묻는 사람, 그리고 안고만 있는 사람 */
   brokenFlow: () => `
-  <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet">
+  <svg viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid meet">
     ${shadow(2)}
     <g filter="url(#ds2)"><g filter="url(#rg2)">
-      <!-- 커피를 내미는 사람 -->
-      ${person(168, 580, 1)}
-      <g stroke="var(--figure)" stroke-width="28" stroke-linecap="round">
-        <path d="M232 494 h94"/>
+      ${figure('asker', 240, 620, 520)}
+      <g stroke="var(--red)" stroke-width="18" stroke-linecap="round">
+        <path d="M470 300 l70 70"/>
+        <path d="M540 300 l-70 70"/>
       </g>
-      ${cup(392, 548, 0.8)}
-      <!-- 막힘 -->
-      <g stroke="var(--red)" stroke-width="17" stroke-linecap="round">
-        <path d="M496 470 l58 58"/>
-        <path d="M554 470 l-58 58"/>
-      </g>
-      <!-- 지식을 안고 있는 사람 -->
-      ${person(756, 580, 1)}
-      <g>
-        ${folder(626, 436, 176, 96)}
-        <g transform="translate(748 516)">
-          <rect x="-40" y="-12" width="80" height="66" rx="13" fill="var(--coal)"/>
-          <path d="M-23 -12 v-22 a23 23 0 0 1 46 0 v22" stroke="var(--coal)" stroke-width="13" fill="none"/>
-          <circle cx="0" cy="18" r="9" fill="var(--paper)"/>
-        </g>
-      </g>
+      ${figure('holder', 760, 620, 520, true)}
+      ${doc(690, 380, 150, 108)}
     </g></g>
   </svg>`,
 
-  /* 03 — 모래시계: 아래에 쌓인 돈과 시간 */
+  /* 03 — 모래시계 : 쌓인 시간과 돈 */
   hourglass: (c = {}) => `
   <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet">
     ${shadow(3)}
     <g filter="url(#ds3)"><g filter="url(#rg3)">
-      <rect x="300" y="40" width="300" height="26" rx="13" fill="var(--paper)"/>
-      <rect x="300" y="554" width="300" height="26" rx="13" fill="var(--paper)"/>
+      <rect x="300" y="40" width="300" height="26" rx="13" fill="var(--figure)"/>
+      <rect x="300" y="554" width="300" height="26" rx="13" fill="var(--figure)"/>
       <path d="M330 66 h240 v42 l-96 186 v14 l96 186 v42 h-240 v-42 l96 -186 v-14 l-96 -186z"
-            fill="none" stroke="var(--paper)" stroke-width="20" stroke-linejoin="round"/>
-      <!-- 위쪽 남은 모래 -->
+            fill="none" stroke="var(--figure)" stroke-width="20" stroke-linejoin="round"/>
       <path d="M356 92 h188 l-72 140 h-44z" fill="var(--red)" opacity=".9"/>
-      <!-- 떨어지는 줄기 -->
       <rect x="444" y="250" width="12" height="150" rx="6" fill="var(--red)"/>
-      <!-- 아래 쌓인 것 : 모래 + 동전 -->
       <path d="M368 528 h164 l-52 -96 h-60z" fill="var(--red)"/>
-      <g fill="var(--paper)">
-        <ellipse cx="404" cy="512" rx="34" ry="12"/>
-        <ellipse cx="404" cy="496" rx="34" ry="12"/>
-        <ellipse cx="500" cy="518" rx="30" ry="11"/>
-      </g>
-      <!-- 연차 태그 -->
       <g transform="rotate(-8 690 210)">
-        <rect x="612" y="168" width="184" height="84" rx="14" fill="var(--paper)"/>
+        <rect x="612" y="168" width="184" height="84" rx="14" fill="var(--figure)"/>
         <text x="704" y="226" text-anchor="middle" font-family="PT" font-weight="900"
-              font-size="54" fill="var(--coal)">${(c.tags || ['5년', '10년'])[0]}</text>
+              font-size="54" fill="var(--bg)">${(c.tags || ['5년', '10년'])[0]}</text>
       </g>
       <g transform="rotate(7 200 380)">
-        <rect x="112" y="338" width="184" height="84" rx="14" fill="var(--paper)"/>
+        <rect x="112" y="338" width="184" height="84" rx="14" fill="var(--figure)"/>
         <text x="204" y="396" text-anchor="middle" font-family="PT" font-weight="900"
-              font-size="54" fill="var(--coal)">${(c.tags || ['5년', '10년'])[1]}</text>
+              font-size="54" fill="var(--bg)">${(c.tags || ['5년', '10년'])[1]}</text>
       </g>
     </g></g>
   </svg>`,
 
-  /* 04 — 한 방향으로만 흐르는 관계, 사라지는 상대 */
+  /* 04 — 받기만 하는 사람과 돌아서 가버린 사람 */
   oneWay: () => `
-  <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet">
+  <svg viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid meet">
     ${shadow(4)}
     <g filter="url(#ds4)"><g filter="url(#rg4)">
-      <!-- 받기만 하는 사람 -->
-      ${person(180, 580, 1)}
-      <!-- 품에 안은 상자 -->
-      <g>
-        <rect x="94" y="504" width="172" height="76" rx="12" fill="var(--red)"/>
-        <rect x="94" y="504" width="172" height="22" rx="10" fill="var(--red-sh)"/>
+      ${figure('tired', 230, 620, 520)}
+      ${box(120, 470, 170, 78)}
+      ${box(140, 396, 130, 70)}
+      <g stroke="var(--figure)" fill="none" stroke-width="14"
+         stroke-linecap="round" stroke-linejoin="round" opacity=".55">
+        <path d="M690 300 h-190"/>
+        <path d="M540 274 l-40 26 l40 26"/>
       </g>
-      <!-- 옆에 쌓인 상자 -->
-      <g>
-        <rect x="288" y="518" width="124" height="62" rx="10" fill="var(--red)" opacity=".8"/>
-        <rect x="300" y="466" width="100" height="52" rx="10" fill="var(--red)" opacity=".55"/>
-      </g>
-      <!-- 한 방향 화살표 (점점 흐려짐) -->
-      <g stroke="var(--figure)" fill="none" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
-        <g opacity=".9"><path d="M700 322 h-236"/><path d="M506 296 l-42 26 l42 26"/></g>
-        <g opacity=".5"><path d="M700 424 h-236"/><path d="M506 398 l-42 26 l42 26"/></g>
-        <g opacity=".2"><path d="M700 526 h-236"/><path d="M506 500 l-42 26 l42 26"/></g>
-      </g>
-      <!-- 사라지는 사람 -->
-      ${ghost(790, 580, 0.9)}
+      <g opacity=".38">${figure('walkingaway', 810, 620, 500)}</g>
     </g></g>
   </svg>`,
 
-  /* 05 — 각자 가진 것을 테이블에 올려놓는 자리 */
+  /* 05 — 각자 가진 것을 내려놓는 자리 */
   table: () => `
-  <svg viewBox="0 0 900 560" preserveAspectRatio="xMidYMid meet">
+  <svg viewBox="0 0 1080 620" preserveAspectRatio="xMidYMid meet">
     ${shadow(5)}
     <g filter="url(#ds5)"><g filter="url(#rg5)">
-      <!-- 테이블 뒤에 선 세 사람 -->
-      ${person(158, 436, 0.9)}
-      ${person(450, 436, 0.98)}
-      ${person(742, 436, 0.9)}
-      <!-- 테이블 -->
-      <rect x="46" y="430" width="808" height="32" rx="16" fill="var(--paper)"/>
-      <rect x="126" y="462" width="28" height="86" rx="10" fill="var(--paper-sh)"/>
-      <rect x="746" y="462" width="28" height="86" rx="10" fill="var(--paper-sh)"/>
-      <!-- 각자 테이블에 올려놓은 상자 -->
-      <g>
-        <rect x="104" y="356" width="108" height="74" rx="10" fill="var(--red)"/>
-        <rect x="104" y="356" width="108" height="20" rx="8" fill="var(--red-sh)"/>
-        <rect x="392" y="342" width="116" height="88" rx="10" fill="var(--red)"/>
-        <rect x="392" y="342" width="116" height="22" rx="8" fill="var(--red-sh)"/>
-        <rect x="690" y="362" width="104" height="68" rx="10" fill="var(--red)"/>
-        <rect x="690" y="362" width="104" height="18" rx="8" fill="var(--red-sh)"/>
-      </g>
+      ${figure('expert', 200, 540, 470)}
+      ${figure('holder', 540, 540, 490)}
+      ${figure('guest', 880, 540, 470, true)}
+      <rect x="60" y="540" width="960" height="26" rx="13" fill="var(--figure)"/>
+      ${box(140, 466, 120, 74)}
+      ${box(480, 452, 130, 88)}
+      ${box(830, 472, 116, 68)}
     </g></g>
   </svg>`,
 
-  /* 06 — 내 상자를 열어보는 사람 : 나는 무엇을 줄 수 있나 */
+  /* 06 — 내가 가진 것을 들여다보는 사람 */
   openBag: () => `
-  <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet">
+  <svg viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid meet">
     ${shadow(6)}
     <g filter="url(#ds6)"><g filter="url(#rg6)">
-      ${person(206, 580, 1.24)}
-      <!-- 열린 상자 -->
-      <g transform="translate(626 0)">
-        <path d="M-150 434 h300 l-26 146 h-248z" fill="var(--coal)"/>
-        <path d="M-150 434 h300 l30 -30 h-360z" fill="var(--paper-sh)"/>
-        <path d="M-150 434 l-74 -46 l38 -30 l70 46z" fill="var(--paper-sh)"/>
-        <path d="M150 434 l74 -46 l-38 -30 l-70 46z" fill="var(--paper-sh)"/>
+      ${figure('thinker', 260, 620, 520)}
+      <g transform="translate(700 0)">
+        <path d="M-160 452 h320 l-28 168 h-264z" fill="var(--figure)"/>
+        <path d="M-160 452 h320 l32 -32 h-384z" fill="var(--figure-hair)" opacity=".55"/>
       </g>
-      <!-- 상자에서 떠오르는 것들 -->
       <g fill="var(--red)">
-        <path d="M608 236 l22 46 l50 7 l-36 35 l9 50 l-45 -24 l-45 24 l9 -50 l-36 -35 l50 -7z"/>
-        <circle cx="452" cy="286" r="24"/>
-        <rect x="740" y="252" width="52" height="52" rx="11" transform="rotate(20 766 278)"/>
+        <path d="M700 236 l24 50 l54 8 l-39 38 l9 54 l-48 -26 l-48 26 l9 -54 l-39 -38 l54 -8z"/>
+        <circle cx="540" cy="300" r="26"/>
+        <rect x="820" y="268" width="56" height="56" rx="12" transform="rotate(20 848 296)"/>
       </g>
     </g></g>
   </svg>`,
 
-  /* 07 — 서로 주고받는 교환 */
+  /* 07 — 서로 내놓는 교환 */
   exchange: () => `
-  <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet">
+  <svg viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid meet">
     ${shadow(7)}
     <g filter="url(#ds7)"><g filter="url(#rg7)">
-      ${person(150, 580, 0.92)}
-      ${person(750, 580, 0.92)}
-      <!-- 서로 뻗은 팔 -->
-      <g stroke="var(--figure)" stroke-width="30" stroke-linecap="round">
-        <path d="M206 498 h116"/>
-        <path d="M694 498 h-116"/>
-      </g>
-      <!-- 주고받는 상자 -->
-      <g>
-        <rect x="306" y="446" width="140" height="96" rx="12" fill="var(--red)"/>
-        <rect x="306" y="446" width="140" height="26" rx="10" fill="var(--red-sh)"/>
-        <rect x="454" y="446" width="140" height="96" rx="12" fill="var(--paper)"/>
-        <rect x="454" y="446" width="140" height="26" rx="10" fill="var(--paper-sh)"/>
-      </g>
-      <!-- 양방향 화살표 -->
-      <g stroke="var(--red)" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M318 588 h264"/>
-        <path d="M360 562 l-42 26 l42 26"/>
-        <path d="M540 562 l42 26 l-42 26"/>
+      ${figure('giver', 210, 620, 520)}
+      ${figure('offering', 790, 620, 520, true)}
+      ${box(380, 330, 110, 96)}
+      ${box(510, 330, 110, 96)}
+      <g stroke="var(--red)" stroke-width="14" fill="none"
+         stroke-linecap="round" stroke-linejoin="round">
+        <path d="M400 500 h200"/>
+        <path d="M436 474 l-36 26 l36 26"/>
+        <path d="M564 474 l36 26 l-36 26"/>
       </g>
     </g></g>
   </svg>`,
