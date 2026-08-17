@@ -82,6 +82,25 @@ Black Han Sans 대신 Anton 으로 바뀌고 자간이 라틴에 맞게 조정�
 - `--coal` : 밝은 오브젝트 **위에** 얹는 글자와 아이콘 (양쪽 테마 모두 어두운 색)
 - `--red` `--red-sh` : 포인트
 
+## 영상에서 자료 뽑기
+
+이 환경은 유튜브 도메인이 네트워크 정책으로 막혀 있다(프록시 경유·직접 연결 모두 403).
+대신 **화면 녹화 파일을 받아 프레임을 뽑아 읽는** 경로가 열려 있다.
+
+```bash
+pip install imageio-ffmpeg
+python3 - <<'EOF'
+import imageio_ffmpeg, subprocess, os
+FF = imageio_ffmpeg.get_ffmpeg_exe()
+os.makedirs('frames', exist_ok=True)
+# 3초에 한 장씩 뽑기 (자막을 켜고 녹화했다면 프레임에서 자막이 읽힌다)
+subprocess.run([FF, '-y', '-i', '녹화파일.mp4', '-vf', 'fps=1/3', 'frames/f_%03d.png'], check=True)
+EOF
+```
+
+뽑힌 PNG를 Read 로 열면 화면의 글자까지 그대로 읽을 수 있다.
+**녹화할 때 자막(CC)을 켜두는 것이 핵심** — 말로만 나온 내용은 프레임에 남지 않는다.
+
 ## 폰트
 
 `cardnews/fonts/` 의 woff2는 KS X 1001 한글 2350자 + 라틴으로 서브셋한 것.

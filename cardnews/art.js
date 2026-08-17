@@ -4,10 +4,18 @@
    - 새 그림을 추가하려면 ART에 함수 하나만 더 붙이면 된다
    =================================================================== */
 
-/* 종이 오려붙인 느낌의 그림자 필터 */
+/* 종이 오려붙인 느낌 :
+   ds = 들뜬 종이 그림자 / rg = 손으로 오린 거친 가장자리 */
 const shadow = (id) => `
   <filter id="ds${id}" x="-40%" y="-40%" width="200%" height="200%">
-    <feDropShadow dx="8" dy="11" stdDeviation="8" flood-color="#000" flood-opacity=".34"/>
+    <feDropShadow dx="7" dy="10" stdDeviation="7" flood-color="#000" flood-opacity=".30"/>
+    <feDropShadow dx="2" dy="3" stdDeviation="1" flood-color="#000" flood-opacity=".22"/>
+  </filter>
+  <filter id="rg${id}" x="-15%" y="-15%" width="130%" height="130%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.014 0.019" numOctaves="3"
+                  seed="${id * 7}" result="warp"/>
+    <feDisplacementMap in="SourceGraphic" in2="warp" scale="5"
+                       xChannelSelector="R" yChannelSelector="G"/>
   </filter>`;
 
 /* 커피잔 (cx = 중심, by = 바닥선, s = 배율) */
@@ -18,9 +26,12 @@ const cup = (cx, by, s = 1) => `
     <path d="M-52 -86 h104 l-13 74 a10 10 0 0 1 -10 8 h-58 a10 10 0 0 1 -10 -8z" fill="var(--paper)"/>
     <path d="M-52 -86 h104 l-3 17 h-98z" fill="var(--paper-sh)"/>
     <path d="M52 -76 a30 30 0 0 1 4 52" stroke="var(--paper)" stroke-width="13" fill="none" stroke-linecap="round"/>
+    <path d="M-52 -86 l14 82 a10 10 0 0 0 6 6" stroke="var(--paper-sh)" stroke-width="6"
+          fill="none" opacity=".7"/>
     <g stroke="var(--paper)" stroke-width="7" stroke-linecap="round" opacity=".55" fill="none">
-      <path d="M-20 -110 q-12 -18 0 -34"/>
-      <path d="M6 -116 q-12 -18 0 -34"/>
+      <path d="M-24 -108 q-13 -19 0 -36"/>
+      <path d="M2 -118 q-13 -19 0 -36"/>
+      <path d="M26 -106 q-13 -19 0 -36"/>
     </g>
   </g>`;
 
@@ -49,7 +60,14 @@ const person = (cx, by, s = 1, body = 'var(--figure)', skin = 'var(--figure-skin
   <g transform="translate(${cx} ${by}) scale(${s})">
     <rect x="-17" y="-176" width="34" height="38" fill="${skin}"/>
     <path d="M-78 0 v-84 a78 58 0 0 1 156 0 V0z" fill="${body}"/>
+    <path d="M-26 -130 l26 26 l26 -26 l-9 -12 l-17 17 l-17 -17z" fill="${skin}" opacity=".9"/>
+    <path d="M-78 -34 a78 40 0 0 0 156 0" fill="none" stroke="var(--figure-hair)"
+          stroke-width="3" opacity=".22"/>
     <circle cx="0" cy="-208" r="56" fill="${skin}"/>
+    <ellipse cx="-56" cy="-200" rx="11" ry="15" fill="${skin}"/>
+    <ellipse cx="56" cy="-200" rx="11" ry="15" fill="${skin}"/>
+    <circle cx="-19" cy="-207" r="6" fill="var(--figure-hair)" opacity=".85"/>
+    <circle cx="19" cy="-207" r="6" fill="var(--figure-hair)" opacity=".85"/>
     <path d="M-57 -210 a57 57 0 0 1 114 0 l-17 0 a40 40 0 0 0 -80 0z" fill="var(--figure-hair)"/>
   </g>`;
 
@@ -67,7 +85,7 @@ const ART = {
   scale: () => `
   <svg viewBox="0 0 900 640" preserveAspectRatio="xMidYMid meet">
     ${shadow(1)}
-    <g filter="url(#ds1)">
+    <g filter="url(#ds1)"><g filter="url(#rg1)">
       <!-- 받침 -->
       <path d="M356 600 h188 l-30 -46 h-128z" fill="var(--paper)"/>
       <rect x="330" y="596" width="240" height="22" rx="11" fill="var(--paper)"/>
@@ -87,14 +105,14 @@ const ART = {
       ${book(742, 246, 184, 34)}
       ${book(742, 212, 204, 32)}
       ${book(742, 180, 190, 34)}
-    </g>
+    </g></g>
   </svg>`,
 
   /* 02 — 커피는 건네지지만 지식은 넘어오지 않는다 */
   brokenFlow: () => `
   <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet">
     ${shadow(2)}
-    <g filter="url(#ds2)">
+    <g filter="url(#ds2)"><g filter="url(#rg2)">
       <!-- 커피를 내미는 사람 -->
       ${person(168, 580, 1)}
       <g stroke="var(--figure)" stroke-width="28" stroke-linecap="round">
@@ -116,14 +134,14 @@ const ART = {
           <circle cx="0" cy="18" r="9" fill="var(--paper)"/>
         </g>
       </g>
-    </g>
+    </g></g>
   </svg>`,
 
   /* 03 — 모래시계: 아래에 쌓인 돈과 시간 */
   hourglass: (c = {}) => `
   <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet">
     ${shadow(3)}
-    <g filter="url(#ds3)">
+    <g filter="url(#ds3)"><g filter="url(#rg3)">
       <rect x="300" y="40" width="300" height="26" rx="13" fill="var(--paper)"/>
       <rect x="300" y="554" width="300" height="26" rx="13" fill="var(--paper)"/>
       <path d="M330 66 h240 v42 l-96 186 v14 l96 186 v42 h-240 v-42 l96 -186 v-14 l-96 -186z"
@@ -150,14 +168,14 @@ const ART = {
         <text x="204" y="396" text-anchor="middle" font-family="PT" font-weight="900"
               font-size="54" fill="var(--coal)">${(c.tags || ['5년', '10년'])[1]}</text>
       </g>
-    </g>
+    </g></g>
   </svg>`,
 
   /* 04 — 한 방향으로만 흐르는 관계, 사라지는 상대 */
   oneWay: () => `
   <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet">
     ${shadow(4)}
-    <g filter="url(#ds4)">
+    <g filter="url(#ds4)"><g filter="url(#rg4)">
       <!-- 받기만 하는 사람 -->
       ${person(180, 580, 1)}
       <!-- 품에 안은 상자 -->
@@ -178,14 +196,14 @@ const ART = {
       </g>
       <!-- 사라지는 사람 -->
       ${ghost(790, 580, 0.9)}
-    </g>
+    </g></g>
   </svg>`,
 
   /* 05 — 각자 가진 것을 테이블에 올려놓는 자리 */
   table: () => `
   <svg viewBox="0 0 900 560" preserveAspectRatio="xMidYMid meet">
     ${shadow(5)}
-    <g filter="url(#ds5)">
+    <g filter="url(#ds5)"><g filter="url(#rg5)">
       <!-- 테이블 뒤에 선 세 사람 -->
       ${person(158, 436, 0.9)}
       ${person(450, 436, 0.98)}
@@ -203,14 +221,14 @@ const ART = {
         <rect x="690" y="362" width="104" height="68" rx="10" fill="var(--red)"/>
         <rect x="690" y="362" width="104" height="18" rx="8" fill="var(--red-sh)"/>
       </g>
-    </g>
+    </g></g>
   </svg>`,
 
   /* 06 — 내 상자를 열어보는 사람 : 나는 무엇을 줄 수 있나 */
   openBag: () => `
   <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet">
     ${shadow(6)}
-    <g filter="url(#ds6)">
+    <g filter="url(#ds6)"><g filter="url(#rg6)">
       ${person(206, 580, 1.24)}
       <!-- 열린 상자 -->
       <g transform="translate(626 0)">
@@ -225,14 +243,14 @@ const ART = {
         <circle cx="452" cy="286" r="24"/>
         <rect x="740" y="252" width="52" height="52" rx="11" transform="rotate(20 766 278)"/>
       </g>
-    </g>
+    </g></g>
   </svg>`,
 
   /* 07 — 서로 주고받는 교환 */
   exchange: () => `
   <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet">
     ${shadow(7)}
-    <g filter="url(#ds7)">
+    <g filter="url(#ds7)"><g filter="url(#rg7)">
       ${person(150, 580, 0.92)}
       ${person(750, 580, 0.92)}
       <!-- 서로 뻗은 팔 -->
@@ -253,14 +271,14 @@ const ART = {
         <path d="M360 562 l-42 26 l42 26"/>
         <path d="M540 562 l42 26 l-42 26"/>
       </g>
-    </g>
+    </g></g>
   </svg>`,
 
   /* 08 — 머리에서 지식만 빼가려는 커피 한 잔 */
   pickBrain: () => `
   <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet">
     ${shadow(8)}
-    <g filter="url(#ds8)">
+    <g filter="url(#ds8)"><g filter="url(#rg8)">
       <!-- 머리 옆모습 -->
       <circle cx="220" cy="330" r="152" fill="var(--figure)"/>
       <rect x="150" y="466" width="140" height="114" fill="var(--figure)"/>
@@ -276,14 +294,14 @@ const ART = {
       <path d="M556 306 l32 40 l-50 12" fill="none" stroke="var(--red)" stroke-width="11"
             stroke-linecap="round" stroke-linejoin="round"/>
       ${cup(700, 560, 1.15)}
-    </g>
+    </g></g>
   </svg>`,
 
   /* 09 — 되묻기 : 질문을 그대로 돌려준다 */
   askFirst: () => `
   <svg viewBox="0 0 900 600" preserveAspectRatio="xMidYMid meet">
     ${shadow(9)}
-    <g filter="url(#ds9)">
+    <g filter="url(#ds9)"><g filter="url(#rg9)">
       <!-- 들어온 질문 -->
       <g>
         <rect x="60" y="150" width="330" height="220" rx="30" fill="var(--paper)"/>
@@ -298,14 +316,14 @@ const ART = {
         <text x="657" y="392" text-anchor="middle" font-family="PT" font-weight="900"
               font-size="162" fill="var(--paper)">?</text>
       </g>
-    </g>
+    </g></g>
   </svg>`,
 
   /* 10 — 반복되는 질문은 자료로 넘긴다 */
   linkOut: () => `
   <svg viewBox="0 0 900 600" preserveAspectRatio="xMidYMid meet">
     ${shadow(10)}
-    <g filter="url(#ds10)">
+    <g filter="url(#ds10)"><g filter="url(#rg10)">
       <!-- 쌓아둔 자료 -->
       <g>
         <rect x="72" y="200" width="230" height="300" rx="14" fill="var(--paper-sh)"/>
@@ -324,14 +342,14 @@ const ART = {
         <path d="M560 282 l46 40 l-46 40"/>
       </g>
       ${person(760, 500, 0.98)}
-    </g>
+    </g></g>
   </svg>`,
 
   /* 11 — 값을 매기면 진짜 필요한 사람만 남는다 */
   priceTag: () => `
   <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet">
     ${shadow(11)}
-    <g filter="url(#ds11)">
+    <g filter="url(#ds11)"><g filter="url(#rg11)">
       <!-- 시간 -->
       <circle cx="256" cy="330" r="150" fill="none" stroke="var(--figure)" stroke-width="26"/>
       <g stroke="var(--figure)" stroke-width="22" stroke-linecap="round">
@@ -347,14 +365,14 @@ const ART = {
           <rect x="512" y="342" width="140" height="22" rx="11"/>
         </g>
       </g>
-    </g>
+    </g></g>
   </svg>`,
 
   /* 12 — 경계를 사이에 둔 관계 */
   boundary: () => `
   <svg viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet">
     ${shadow(12)}
-    <g filter="url(#ds12)">
+    <g filter="url(#ds12)"><g filter="url(#rg12)">
       ${person(190, 580, 1)}
       ${person(710, 580, 1)}
       <!-- 가운데 경계선 -->
@@ -368,7 +386,7 @@ const ART = {
       <g>
         <rect x="378" y="452" width="144" height="68" rx="22" fill="var(--red)"/>
       </g>
-    </g>
+    </g></g>
   </svg>`,
 };
 
