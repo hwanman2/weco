@@ -4,10 +4,36 @@
    결과:    cardnews/out/<세트이름>-01.png ... (1080x1350)
    =================================================================== */
 
-import { chromium } from '/opt/node22/lib/node_modules/playwright/index.mjs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { mkdirSync, rmSync, readdirSync } from 'node:fs';
+
+/* Playwright 는 설치 위치가 환경마다 다르다.
+   일반 해석 → 전역 설치 경로 순으로 찾는다. */
+async function loadChromium() {
+  const candidates = [
+    'playwright',
+    'playwright-core',
+    '/opt/node22/lib/node_modules/playwright/index.mjs',
+    '/usr/lib/node_modules/playwright/index.mjs',
+    '/usr/local/lib/node_modules/playwright/index.mjs',
+  ];
+  for (const c of candidates) {
+    try {
+      const mod = await import(c);
+      if (mod.chromium) return mod.chromium;
+    } catch {
+      /* 다음 후보로 */
+    }
+  }
+  console.error(
+    'Playwright 를 찾지 못했습니다.\n' +
+      '  npm i -D playwright && npx playwright install chromium\n' +
+      '을 실행한 뒤 다시 시도하세요.'
+  );
+  process.exit(1);
+}
+const chromium = await loadChromium();
 
 const here = dirname(fileURLToPath(import.meta.url));
 const setName = process.argv[2] || 'networking';
