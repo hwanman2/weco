@@ -422,6 +422,26 @@ const ART = {
     </g></g>
   </svg>`,
 
+  /* 18 — 지인이라 깎아달라는 요구 */
+  discount: () => `
+  <svg viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid meet">
+    ${shadow(18)}
+    <g filter="url(#ds18)"><g filter="url(#rg18)">
+      ${figure('asker', 220, 620, 500)}
+      <g transform="rotate(-8 660 320)">
+        <path d="M520 206 h250 a30 30 0 0 1 30 30 v168 a30 30 0 0 1 -30 30 h-250 l-92 -114z"
+              fill="var(--red)"/>
+        <circle cx="502" cy="320" r="30" fill="var(--bg)"/>
+        <g fill="var(--figure-skin)">
+          <rect x="562" y="272" width="190" height="24" rx="12"/>
+          <rect x="562" y="326" width="140" height="24" rx="12"/>
+        </g>
+        <path d="M498 400 L800 214" stroke="var(--figure)" stroke-width="20" stroke-linecap="round"/>
+      </g>
+      ${figure('holder', 830, 620, 500, true)}
+    </g></g>
+  </svg>`,
+
   /* 13 — 사방에서 들이미는 요청, 가운데서 받아내는 사람 (커버용) */
   swamped: () => `
   <svg viewBox="0 0 980 620" preserveAspectRatio="xMidYMid meet">
