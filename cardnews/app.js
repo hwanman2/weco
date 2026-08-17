@@ -9,6 +9,7 @@
     const el = document.createElement('section');
     el.className = 'card';
     el.dataset.theme = c.theme;
+    el.dataset.lang = set.lang || 'ko';
     el.dataset.index = i + 1;
 
     const headline = c.lines.map((l) => `<span class="ln">${l}</span>`).join('');

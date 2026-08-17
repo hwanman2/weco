@@ -8,6 +8,7 @@
 @font-face{font-family:'PT';src:url('fonts/Pretendard-Medium.subset.woff2') format('woff2');font-weight:500;font-display:block;}
 @font-face{font-family:'PT';src:url('fonts/Pretendard-Regular.subset.woff2') format('woff2');font-weight:400;font-display:block;}
 @font-face{font-family:'BHS';src:url('fonts/BlackHanSans.subset.woff2') format('woff2');font-weight:400;font-display:block;}
+@font-face{font-family:'ANTON';src:url('fonts/Anton.woff2') format('woff2');font-weight:400;font-display:block;}
 
 *{margin:0;padding:0;box-sizing:border-box;}
 
@@ -52,8 +53,8 @@ body{
   --red:#e8492c;
   --dim:#a79c8c;
   --line:rgba(29,26,22,.28);
-  --paper:#e2d6bf;
-  --paper-sh:#c6b99f;
+  --paper:#d8c9a9;
+  --paper-sh:#b6a684;
   --coal:#2a2621;
   --red-sh:#bb3319;
   --figure:#2a2621;
@@ -121,6 +122,15 @@ h1{
   text-shadow:0 4px 22px rgba(0,0,0,.55);
 }
 h1 .ln{display:block;white-space:nowrap;}
+
+/* 영문 원고 : 라틴 전용 디스플레이 폰트로 교체 */
+.card[data-lang="en"] h1{letter-spacing:-.02em;}
+.card[data-lang="en"][data-theme="cream"] h1{
+  font-family:'ANTON',sans-serif;
+  letter-spacing:.004em;
+  line-height:1.1;
+}
+.card[data-lang="en"] .sub{letter-spacing:0;}
 h1 em{font-style:normal;color:var(--red);}
 
 /* 서브카피 */

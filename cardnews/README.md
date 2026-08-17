@@ -52,11 +52,15 @@ npx http-server . -p 8080     # http://localhost:8080/cardnews/?set=networking
 |---|---|
 | `networking` | 네트워킹을 착각하는 사람들 (7장) |
 | `brainpick` | "노하우 좀 알려주세요" 거절법 (7장) |
+| `givefirst-en` | Give first — your knowledge has a price (영문 7장) |
 
 ## 새 카드셀 만들기
 
 1. `cardnews/sets/새이름.js` 를 만들고 `window.CARD_SET = { ... }` 작성
 2. `node cardnews/render.mjs 새이름`
+
+영문 원고는 세트에 `lang: 'en'` 을 넣는다. 크림 카드 헤드라인이
+Black Han Sans 대신 Anton 으로 바뀌고 자간이 라틴에 맞게 조정된다.
 
 ## 그림 추가하기
 
@@ -78,6 +82,7 @@ npx http-server . -p 8080     # http://localhost:8080/cardnews/?set=networking
 
 `cardnews/fonts/` 의 woff2는 KS X 1001 한글 2350자 + 라틴으로 서브셋한 것.
 - Pretendard (OFL) — Black / Bold / Medium / Regular
-- Black Han Sans (OFL)
+- Black Han Sans (OFL) — 국문 크림 카드 헤드라인
+- Anton (OFL) — 영문 크림 카드 헤드라인 (라틴 서브셋)
 
 한글 상용 글자는 전부 들어 있어 문구를 바꿔도 그대로 쓸 수 있다.
