@@ -60,10 +60,21 @@ npx http-server . -p 8080     # http://localhost:8080/cardnews/?set=networking
 | `brainpick` | "노하우 좀 알려주세요" 거절법 (9장) |
 | `givefirst-en` | Give first — your knowledge has a price (영문 7장) |
 | `fifthtime` | 다섯 번째 "잠깐만 물어봐도 돼요?" (7장) |
-| `coffeechat` | 커피챗 요청, 다 받아주고 계신가요? (7장) |
+| `coffeechat` | 커피챗 요청, 다 받아주고 계신가요? (7장, 보류) |
 | `pickyourbrain` | Pick Your Brain — 네트워킹과 지식 구걸 (9장) |
 | `pickyourbrain-short` | 같은 원문 7장 압축본 (A/B용) |
 | `offline-marketing` | 오프라인 매장 마케팅하며 알게 된 것 (9장) |
+
+## 릴스용 세로 영상 뽑기
+
+카드 PNG 를 1080x1920 mp4 로 이어붙인다. 카드가 4:5 라 생기는 위아래 여백은
+카드마다 배경색을 뽑아 채운다 (다크/크림이 섞여 있어 한 색으로 깔면 띠가 보인다).
+
+```bash
+node cardnews/tools/make-reel.mjs offline-marketing 3.5   # 세트이름, 장당 초
+```
+
+결과: `cardnews/out/<세트이름>-reel.mp4`
 
 ## 새 카드셀 만들기
 

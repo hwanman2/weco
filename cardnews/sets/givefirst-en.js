@@ -22,7 +22,7 @@ window.CARD_SET = {
       sub: 'Asking is free. The answer never was.',
     },
     {
-      theme: 'dark', layout: 'standard', art: 'hourglass',
+      theme: 'dark', layout: 'standard', art: 'hourglass', tags: ['one hour', 'one more'],
       lines: ['You say yes because', 'you don’t want to be <em>rude</em>'],
       sub: 'And your week quietly disappears.',
     },

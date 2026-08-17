@@ -21,7 +21,7 @@ window.CARD_SET = {
       sub: '묻는 건 공짜지만, 답은 공짜가 아니다.',
     },
     {
-      theme: 'dark', layout: 'standard', art: 'hourglass',
+      theme: 'dark', layout: 'standard', art: 'hourglass', tags: ['이번 한 번', '또 한 번'],
       lines: ['거절이 어려운 건', '<em>관계가 틀어질까</em> 봐다'],
       sub: '그 걱정으로 미루는 동안 내 시간이 먼저 사라진다.',
     },

@@ -18,114 +18,7 @@ const shadow = (id) => `
                        xChannelSelector="R" yChannelSelector="G"/>
   </filter>`;
 
-/* 커피잔 (cx = 중심, by = 바닥선, s = 배율) */
-const cup = (cx, by, s = 1) => `
-  <g transform="translate(${cx} ${by}) scale(${s})">
-    <ellipse cx="0" cy="0" rx="86" ry="17" fill="var(--paper-sh)"/>
-    <path d="M-78 -8 h156 a10 10 0 0 1 0 16 h-156 a10 10 0 0 1 0 -16z" fill="var(--paper)"/>
-    <path d="M-52 -86 h104 l-13 74 a10 10 0 0 1 -10 8 h-58 a10 10 0 0 1 -10 -8z" fill="var(--paper)"/>
-    <path d="M-52 -86 h104 l-3 17 h-98z" fill="var(--paper-sh)"/>
-    <path d="M52 -76 a30 30 0 0 1 4 52" stroke="var(--paper)" stroke-width="13" fill="none" stroke-linecap="round"/>
-    <path d="M-52 -86 l14 82 a10 10 0 0 0 6 6" stroke="var(--paper-sh)" stroke-width="6"
-          fill="none" opacity=".7"/>
-    <g stroke="var(--paper)" stroke-width="7" stroke-linecap="round" opacity=".55" fill="none">
-      <path d="M-24 -108 q-13 -19 0 -36"/>
-      <path d="M2 -118 q-13 -19 0 -36"/>
-      <path d="M26 -106 q-13 -19 0 -36"/>
-    </g>
-  </g>`;
 
-/* 책 한 권 (가로 폭 w, 높이 h) — 빨강 표지 + 크림 책배 */
-const book = (cx, by, w, h, tone = 'red') => {
-  const f = tone === 'red' ? 'var(--red)' : 'var(--coal)';
-  const d = tone === 'red' ? 'var(--red-sh)' : '#000';
-  return `
-  <g>
-    <rect x="${cx - w / 2}" y="${by - h}" width="${w}" height="${h}" rx="5" fill="${f}"/>
-    <rect x="${cx - w / 2 + 12}" y="${by - h + 6}" width="${w - 24}" height="${h - 12}" rx="3" fill="var(--paper)"/>
-    <rect x="${cx - w / 2}" y="${by - h}" width="18" height="${h}" rx="4" fill="${d}"/>
-    <rect x="${cx + w / 2 - 8}" y="${by - h}" width="8" height="${h}" fill="${d}" opacity=".55"/>
-  </g>`;
-};
-
-/* 폴더 */
-const folder = (x, y, w, h, fill = 'var(--red)') => `
-  <g>
-    <path d="M${x} ${y + 26} a12 12 0 0 1 12 -12 h${w * 0.32} l22 -22 h${w * 0.6} a12 12 0 0 1 12 12 v${h} a12 12 0 0 1 -12 12 h-${w} a12 12 0 0 1 -12 -12z" fill="${fill}"/>
-    <rect x="${x + 26}" y="${y + 6}" width="${w - 60}" height="26" rx="6" fill="var(--paper)"/>
-  </g>`;
-
-/* 페이퍼컷 인물 — 머리(위) + 목 + 어깨선 몸통 */
-const person = (cx, by, s = 1, body = 'var(--figure)', skin = 'var(--figure-skin)') => `
-  <g transform="translate(${cx} ${by}) scale(${s})">
-    <rect x="-17" y="-176" width="34" height="38" fill="${skin}"/>
-    <path d="M-78 0 v-84 a78 58 0 0 1 156 0 V0z" fill="${body}"/>
-    <path d="M-26 -130 l26 26 l26 -26 l-9 -12 l-17 17 l-17 -17z" fill="${skin}" opacity=".9"/>
-    <path d="M-78 -34 a78 40 0 0 0 156 0" fill="none" stroke="var(--figure-hair)"
-          stroke-width="3" opacity=".22"/>
-    <circle cx="0" cy="-208" r="56" fill="${skin}"/>
-    <ellipse cx="-56" cy="-200" rx="11" ry="15" fill="${skin}"/>
-    <ellipse cx="56" cy="-200" rx="11" ry="15" fill="${skin}"/>
-    <circle cx="-19" cy="-207" r="6" fill="var(--figure-hair)" opacity=".85"/>
-    <circle cx="19" cy="-207" r="6" fill="var(--figure-hair)" opacity=".85"/>
-    <path d="M-57 -210 a57 57 0 0 1 114 0 l-17 0 a40 40 0 0 0 -80 0z" fill="var(--figure-hair)"/>
-  </g>`;
-
-/* 점선 실루엣 인물 (사라지는 사람) */
-const ghost = (cx, by, s = 1) => `
-  <g transform="translate(${cx} ${by}) scale(${s})" fill="none" stroke="var(--figure)"
-     stroke-width="11" stroke-dasharray="24 21" stroke-linecap="round" opacity=".45">
-    <path d="M-78 0 v-84 a78 58 0 0 1 156 0 V0"/>
-    <circle cx="0" cy="-208" r="56"/>
-  </g>`;
-
-
-/* ── 표정 있는 얼굴 ────────────────────────────────────────────────
-   emo: 'tired' 지침 | 'firm' 단호 | 'smug' 뻔뻔 | 'plead' 아쉬운소리
-   썸네일이 먹히는 이유는 얼굴과 감정이다. 무표정 실루엣은 넘어간다.  */
-const face = (cx, cy, r = 100, emo = 'tired', skin = 'var(--figure-skin)') => {
-  const ink = 'var(--figure-hair)';
-  const k = r / 100;
-  const brow = {
-    tired: `M-58 -34 l44 14 M58 -34 l-44 14`,      // 八 자로 처진 눈썹
-    firm:  `M-60 -28 l46 -8 M60 -28 l-46 -8`,      // 안쪽이 내려온 단호한 눈썹
-    smug:  `M-58 -40 l44 -4 M58 -30 l-44 6`,       // 한쪽만 올라간 눈썹
-    plead: `M-56 -40 l42 18 M56 -40 l-42 18`,
-  }[emo];
-  const mouth = {
-    tired: `M-30 46 h60`,                           // 꾹 다문 일자
-    firm:  `M-28 44 q28 -12 56 0`,                  // 살짝 다문 곡선
-    smug:  `M-26 40 q26 26 52 -6`,                  // 능글맞은 미소
-    plead: `M-24 52 q24 -22 48 0`,
-  }[emo];
-  const eyes = emo === 'firm'
-    ? `<path d="M-40 4 h26 M14 4 h26" stroke="${ink}" stroke-width="${11 * k}" stroke-linecap="round"/>`
-    : `<circle cx="-27" cy="4" r="11" fill="${ink}"/><circle cx="27" cy="4" r="11" fill="${ink}"/>`;
-  return `
-  <g transform="translate(${cx} ${cy}) scale(${k})">
-    <circle cx="0" cy="0" r="100" fill="${skin}"/>
-    <ellipse cx="-99" cy="6" rx="15" ry="21" fill="${skin}"/>
-    <ellipse cx="99" cy="6" rx="15" ry="21" fill="${skin}"/>
-    <path d="M-101 -18 a101 101 0 0 1 202 0 l-30 2 a72 72 0 0 0 -142 0z" fill="${ink}"/>
-    ${eyes}
-    <g stroke="${ink}" stroke-width="${10 * k}" stroke-linecap="round" fill="none">
-      <path d="${brow}"/>
-      <path d="${mouth}"/>
-    </g>
-  </g>`;
-};
-
-/* 화면 밖에서 들어오는 팔 + 내미는 서류 (각도 deg 로 배치) */
-const pushingHand = (x, y, deg, len = 210) => `
-  <g transform="translate(${x} ${y}) rotate(${deg})">
-    <rect x="0" y="-26" width="${len}" height="52" rx="26" fill="var(--figure)"/>
-    <rect x="${len - 40}" y="-40" width="86" height="80" rx="22" fill="var(--figure-skin)"/>
-    <g transform="translate(${len + 40} 0) rotate(${-deg})">
-      <path d="M0 -58 a10 10 0 0 1 10 -10 h44 l16 -16 h62 a10 10 0 0 1 10 10 v92
-               a10 10 0 0 1 -10 10 h-122 a10 10 0 0 1 -10 -10z" fill="var(--red)"/>
-      <rect x="18" y="-40" width="76" height="18" rx="8" fill="var(--paper)" opacity=".85"/>
-    </g>
-  </g>`;
 
 
 /* humaaans 인물 배치 — cx=가로중심, by=발밑, h=키(px), flip=좌우반전 */
@@ -651,19 +544,6 @@ const ART = {
       </g>
       ${label(250, 480, '마케팅', 46, 'var(--figure)')}
       ${label(810, 480, '컨설팅', 46, 'var(--red)')}
-    </g></g>
-  </svg>`,
-
-  /* 13 — 사방에서 들이미는 요청, 가운데서 받아내는 사람 (커버용) */
-  swamped: () => `
-  <svg viewBox="0 0 980 620" preserveAspectRatio="xMidYMid meet">
-    ${shadow(13)}
-    <g filter="url(#ds13)"><g filter="url(#rg13)">
-      ${pushingHand(-60, 150, 14)}
-      ${pushingHand(-50, 470, -12)}
-      ${pushingHand(1040, 140, 166)}
-      ${pushingHand(1030, 500, 194)}
-      ${figure('tired', 490, 620, 560)}
     </g></g>
   </svg>`,
 

@@ -23,7 +23,7 @@ window.CARD_SET = {
       sub: '몇 년 걸려 배운 걸 30분마다 넘겨주고 있다.',
     },
     {
-      theme: 'dark', layout: 'standard', art: 'hourglass',
+      theme: 'dark', layout: 'standard', art: 'hourglass', tags: ['이번 한 번', '또 한 번'],
       lines: ['그래도 못 끊는 건', '<em>문지기</em>처럼 보일까 봐다'],
       sub: '인색한 사람으로 보이기 싫어서 계속 열어준다.',
     },
