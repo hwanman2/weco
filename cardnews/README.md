@@ -101,6 +101,37 @@ EOF
 뽑힌 PNG를 Read 로 열면 화면의 글자까지 그대로 읽을 수 있다.
 **녹화할 때 자막(CC)을 켜두는 것이 핵심** — 말로만 나온 내용은 프레임에 남지 않는다.
 
+## 인물 일러스트 (오픈소스)
+
+도형으로 그린 사람은 표정도 자세도 없어서 공감이 안 붙는다.
+그래서 **Humaaans** 를 가져다 쓴다.
+
+- 패키지 : [`humaaans`](https://www.npmjs.com/package/humaaans) (MIT)
+- 원작 아트워크 : **Humaaans by Pablo Stanley** — CC BY 4.0
+  (상업적 사용 가능, **출처 표기 필요**)
+- 조합 가능 수 : 머리 18종 × 상의 10종 × 하의 8종
+
+`React.createElement` 로 컴파일된 모듈을 SVG 문자열로 뽑아
+`cardnews/figures/*.svg` 와 `cardnews/figures.js` 로 저장한다.
+
+```bash
+cd /tmp && npm i humaaans
+node cardnews/tools/extract-humaaans.mjs /tmp/node_modules/humaaans
+```
+
+색은 부위별로 팔레트 변수에 매핑된다 —
+머리는 `--figure-hair`, 피부는 `--figure-skin`, 상의의 주된 색만 `--red`,
+나머지 옷은 `--figure`. 그래서 다크·크림 카드 양쪽에서 자동으로 맞는다.
+
+일러스트 안에서 쓰려면:
+
+```js
+figure('tired', 490, 620, 560)        // 이름, 가로중심, 발밑, 키
+figure('listener', 720, 560, 500, true)  // 마지막 인자 true = 좌우반전
+```
+
+새 조합이 필요하면 `tools/extract-humaaans.mjs` 의 `FIGURES` 에 추가한다.
+
 ## 폰트
 
 `cardnews/fonts/` 의 woff2는 KS X 1001 한글 2350자 + 라틴으로 서브셋한 것.

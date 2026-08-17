@@ -79,6 +79,63 @@ const ghost = (cx, by, s = 1) => `
     <circle cx="0" cy="-208" r="56"/>
   </g>`;
 
+
+/* ── 표정 있는 얼굴 ────────────────────────────────────────────────
+   emo: 'tired' 지침 | 'firm' 단호 | 'smug' 뻔뻔 | 'plead' 아쉬운소리
+   썸네일이 먹히는 이유는 얼굴과 감정이다. 무표정 실루엣은 넘어간다.  */
+const face = (cx, cy, r = 100, emo = 'tired', skin = 'var(--figure-skin)') => {
+  const ink = 'var(--figure-hair)';
+  const k = r / 100;
+  const brow = {
+    tired: `M-58 -34 l44 14 M58 -34 l-44 14`,      // 八 자로 처진 눈썹
+    firm:  `M-60 -28 l46 -8 M60 -28 l-46 -8`,      // 안쪽이 내려온 단호한 눈썹
+    smug:  `M-58 -40 l44 -4 M58 -30 l-44 6`,       // 한쪽만 올라간 눈썹
+    plead: `M-56 -40 l42 18 M56 -40 l-42 18`,
+  }[emo];
+  const mouth = {
+    tired: `M-30 46 h60`,                           // 꾹 다문 일자
+    firm:  `M-28 44 q28 -12 56 0`,                  // 살짝 다문 곡선
+    smug:  `M-26 40 q26 26 52 -6`,                  // 능글맞은 미소
+    plead: `M-24 52 q24 -22 48 0`,
+  }[emo];
+  const eyes = emo === 'firm'
+    ? `<path d="M-40 4 h26 M14 4 h26" stroke="${ink}" stroke-width="${11 * k}" stroke-linecap="round"/>`
+    : `<circle cx="-27" cy="4" r="11" fill="${ink}"/><circle cx="27" cy="4" r="11" fill="${ink}"/>`;
+  return `
+  <g transform="translate(${cx} ${cy}) scale(${k})">
+    <circle cx="0" cy="0" r="100" fill="${skin}"/>
+    <ellipse cx="-99" cy="6" rx="15" ry="21" fill="${skin}"/>
+    <ellipse cx="99" cy="6" rx="15" ry="21" fill="${skin}"/>
+    <path d="M-101 -18 a101 101 0 0 1 202 0 l-30 2 a72 72 0 0 0 -142 0z" fill="${ink}"/>
+    ${eyes}
+    <g stroke="${ink}" stroke-width="${10 * k}" stroke-linecap="round" fill="none">
+      <path d="${brow}"/>
+      <path d="${mouth}"/>
+    </g>
+  </g>`;
+};
+
+/* 화면 밖에서 들어오는 팔 + 내미는 서류 (각도 deg 로 배치) */
+const pushingHand = (x, y, deg, len = 210) => `
+  <g transform="translate(${x} ${y}) rotate(${deg})">
+    <rect x="0" y="-26" width="${len}" height="52" rx="26" fill="var(--figure)"/>
+    <rect x="${len - 40}" y="-40" width="86" height="80" rx="22" fill="var(--figure-skin)"/>
+    <g transform="translate(${len + 40} 0) rotate(${-deg})">
+      <path d="M0 -58 a10 10 0 0 1 10 -10 h44 l16 -16 h62 a10 10 0 0 1 10 10 v92
+               a10 10 0 0 1 -10 10 h-122 a10 10 0 0 1 -10 -10z" fill="var(--red)"/>
+      <rect x="18" y="-40" width="76" height="18" rx="8" fill="var(--paper)" opacity=".85"/>
+    </g>
+  </g>`;
+
+
+/* humaaans 인물 배치 — cx=가로중심, by=발밑, h=키(px), flip=좌우반전 */
+const figure = (name, cx, by, h = 460, flip = false) => {
+  const box = (typeof window !== 'undefined' && window.FIGURE_BOX) || { w: 380, h: 480 };
+  const art = (typeof window !== 'undefined' && window.FIGURES && window.FIGURES[name]) || '';
+  const s = h / box.h;
+  return `<g transform="translate(${cx} ${by}) scale(${flip ? -s : s} ${s}) translate(${-box.w / 2} ${-box.h})">${art}</g>`;
+};
+
 const ART = {
 
   /* 01 — 저울: 커피 한 잔 vs 몇 년의 경험 */
@@ -388,6 +445,49 @@ const ART = {
       </g>
     </g></g>
   </svg>`,
+
+  /* 13 — 사방에서 들이미는 요청, 가운데서 받아내는 사람 (커버용) */
+  swamped: () => `
+  <svg viewBox="0 0 980 620" preserveAspectRatio="xMidYMid meet">
+    ${shadow(13)}
+    <g filter="url(#ds13)"><g filter="url(#rg13)">
+      ${pushingHand(-60, 150, 14)}
+      ${pushingHand(-50, 470, -12)}
+      ${pushingHand(1040, 140, 166)}
+      ${pushingHand(1030, 500, 194)}
+      ${figure('tired', 490, 620, 560)}
+    </g></g>
+  </svg>`,
+
+  /* 14 — 묻는 사람과 답해야 하는 사람 */
+  twoPeople: () => `
+  <svg viewBox="0 0 980 560" preserveAspectRatio="xMidYMid meet">
+    ${shadow(14)}
+    <g filter="url(#ds14)"><g filter="url(#rg14)">
+      ${figure('asker', 250, 560, 500)}
+      ${figure('listener', 720, 560, 500, true)}
+    </g></g>
+  </svg>`,
+
+  /* 15 — 등 돌리고 떠나는 사람 */
+  leaving: () => `
+  <svg viewBox="0 0 980 560" preserveAspectRatio="xMidYMid meet">
+    ${shadow(15)}
+    <g filter="url(#ds15)"><g filter="url(#rg15)">
+      ${figure('tired', 240, 560, 500)}
+      <g opacity=".45">${figure('walkingaway', 740, 560, 500)}</g>
+    </g></g>
+  </svg>`,
+
+  /* 16 — 기준을 말하는 사람 */
+  standing: () => `
+  <svg viewBox="0 0 980 560" preserveAspectRatio="xMidYMid meet">
+    ${shadow(16)}
+    <g filter="url(#ds16)"><g filter="url(#rg16)">
+      ${figure('pointingup', 490, 560, 520)}
+    </g></g>
+  </svg>`,
+
 };
 
 if (typeof window !== 'undefined') window.ART = ART;
