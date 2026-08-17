@@ -4,6 +4,8 @@
   const set = window.CARD_SET;
   const total = String(set.cards.length).padStart(2, '0');
   const stage = document.getElementById('stage');
+  /* 하단 워드마크 — 세트에서 brand: '' 로 끄거나 다른 이름으로 바꾼다 */
+  const brand = set.brand === undefined ? 'hwanman' : set.brand;
 
   set.cards.forEach((c, i) => {
     const el = document.createElement('section');
@@ -45,6 +47,7 @@
         ${c.art ? `<div class="art">${window.ART[c.art](c)}</div>` : ''}
         <div class="page"><b>${String(i + 1).padStart(2, '0')}</b>/${total}</div>
         ${c.sign ? `<div class="sign">${c.sign}</div>` : ''}
+        ${brand ? `<div class="brand">${brand}</div>` : ''}
       </div>`;
 
     stage.appendChild(el);

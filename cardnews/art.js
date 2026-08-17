@@ -191,6 +191,32 @@ const bubble = (x, y, w, h, txt, red = false, dir = 'left') => {
   </g>`;
 };
 
+
+/* 라벨 : 그림 위에 얹는 짧은 글자 (구체적인 그림을 만드는 핵심) */
+const label = (x, y, txt, size = 40, fill = 'var(--figure)', anchor = 'middle') => `
+  <text x="${x}" y="${y}" text-anchor="${anchor}" font-family="PT" font-weight="900"
+        font-size="${size}" fill="${fill}" letter-spacing="-1">${txt}</text>`;
+
+/* 개업 화환 — 한국에서 '새로 열었다'를 한 컷에 설명하는 물건 */
+const wreath = (cx, by, s = 1) => `
+  <g transform="translate(${cx} ${by}) scale(${s})">
+    <rect x="-10" y="-300" width="20" height="300" fill="var(--figure)"/>
+    <path d="M-70 0 h140 l-24 -30 h-92z" fill="var(--figure)"/>
+    <circle cx="0" cy="-330" r="96" fill="none" stroke="var(--red)" stroke-width="34"/>
+    <g fill="var(--figure-skin)">
+      <circle cx="0" cy="-426" r="17"/><circle cx="68" cy="-398" r="17"/>
+      <circle cx="96" cy="-330" r="17"/><circle cx="68" cy="-262" r="17"/>
+      <circle cx="0" cy="-234" r="17"/><circle cx="-68" cy="-262" r="17"/>
+      <circle cx="-96" cy="-330" r="17"/><circle cx="-68" cy="-398" r="17"/>
+    </g>
+    <rect x="-52" y="-236" width="104" height="196" rx="6" fill="var(--figure)"/>
+    <path d="M-52 -40 l52 -34 l52 34z" fill="var(--bg)"/>
+    <text x="0" y="-176" text-anchor="middle" font-family="PT" font-weight="900"
+          font-size="46" fill="var(--red)">축</text>
+    <text x="0" y="-118" text-anchor="middle" font-family="PT" font-weight="900"
+          font-size="46" fill="var(--red)">개업</text>
+  </g>`;
+
 const ART = {
 
   /* 01 — 커피 한 잔 내미는 사람 vs 사람 키만 한 서류탑 (커버) */
@@ -451,10 +477,7 @@ const ART = {
     <g filter="url(#ds19)"><g filter="url(#rg19)">
       <rect x="230" y="200" width="540" height="380" rx="10" fill="var(--figure)"/>
       <rect x="200" y="150" width="600" height="66" rx="12" fill="var(--red)"/>
-      <g fill="var(--figure-skin)" opacity=".85">
-        <rect x="260" y="172" width="190" height="22" rx="11"/>
-        <rect x="470" y="172" width="110" height="22" rx="11"/>
-      </g>
+
       <!-- 차양 -->
       <path d="M200 216 h600 l-40 74 h-520z" fill="var(--red-sh)"/>
       <!-- 창과 문 -->
@@ -462,11 +485,11 @@ const ART = {
       <rect x="560" y="330" width="150" height="250" rx="8" fill="var(--bg)" opacity=".75"/>
       <circle cx="586" cy="456" r="10" fill="var(--figure)"/>
       <!-- OPEN 깃발 -->
-      <g transform="rotate(-12 830 300)">
-        <rect x="820" y="250" width="12" height="180" rx="6" fill="var(--figure)"/>
-        <path d="M832 254 h130 l-30 40 l30 40 h-130z" fill="var(--red)"/>
-      </g>
-      ${figure('guest', 130, 580, 330)}
+      ${label(500, 196, 'OPEN', 46, 'var(--figure-skin)')}
+      ${wreath(880, 580, 0.86)}
+      <!-- 오픈 첫 주의 줄 -->
+      ${figure('guest', 96, 580, 300)}
+      ${figure('thinker', 172, 580, 286)}
     </g></g>
   </svg>`,
 
@@ -483,6 +506,9 @@ const ART = {
       <!-- 한계선 -->
       <path d="M150 150 H900" stroke="var(--figure)" stroke-width="8"
             stroke-dasharray="26 22" stroke-linecap="round" opacity=".65"/>
+      ${label(890, 126, '한계 매출', 38, 'var(--figure)', 'end')}
+      ${label(240, 214, '매출', 42, 'var(--red)', 'start')}
+      ${label(725, 560, '광고비', 40, 'var(--figure)')}
       <!-- 계속 붓는 마케팅비 -->
       <g fill="var(--figure)" opacity=".9">
         <rect x="560" y="330" width="60" height="170" rx="8"/>
@@ -501,10 +527,8 @@ const ART = {
       <rect x="380" y="40" width="300" height="540" rx="40" fill="var(--figure)"/>
       <rect x="404" y="76" width="252" height="470" rx="22" fill="var(--bg)"/>
       <path d="M500 240 l100 58 l-100 58z" fill="var(--red)"/>
-      <g fill="var(--figure)" opacity=".55">
-        <rect x="440" y="420" width="150" height="16" rx="8"/>
-        <rect x="440" y="452" width="100" height="16" rx="8"/>
-      </g>
+      ${label(530, 400, '조회수 12.4만', 44, 'var(--figure)')}
+      ${label(530, 470, '저장 320', 34, 'var(--figure)')}
       <!-- 올라가는 조회수, 그러나 그뿐 -->
       <g stroke="var(--red)" stroke-width="14" fill="none" stroke-linecap="round">
         <path d="M300 300 l-70 -70"/>
@@ -512,11 +536,13 @@ const ART = {
         <path d="M760 300 l70 -70"/>
         <path d="M830 230 l0 46 M830 230 l-46 0"/>
       </g>
-      <g fill="var(--figure)" opacity=".35">
-        <circle cx="250" cy="440" r="26"/>
-        <circle cx="790" cy="430" r="20"/>
-        <circle cx="300" cy="120" r="18"/>
-      </g>
+      <!-- 그런데 매출선은 그대로 눕는다 -->
+      ${label(180, 470, '매출', 40, 'var(--figure)')}
+      <path d="M110 520 h180" stroke="var(--figure)" stroke-width="14"
+            stroke-linecap="round" opacity=".85"/>
+      ${label(820, 470, '재구매', 40, 'var(--figure)')}
+      <path d="M710 520 h180" stroke="var(--figure)" stroke-width="14"
+            stroke-linecap="round" opacity=".85"/>
     </g></g>
   </svg>`,
 
@@ -536,6 +562,10 @@ const ART = {
         <circle cx="400" cy="280" r="70"/>
       </g>
       <path d="M400 210 q30 -46 66 -50 q-8 42 -50 58z" fill="var(--figure)"/>
+      ${label(160, 480, '봄', 44, 'var(--figure)')}
+      ${label(400, 520, '지금', 52, 'var(--red)')}
+      ${label(640, 480, '가을', 44, 'var(--figure)')}
+      ${label(880, 480, '겨울', 44, 'var(--figure)')}
     </g></g>
   </svg>`,
 
@@ -564,6 +594,8 @@ const ART = {
         <path d="M400 520 V180"/>
         <path d="M372 208 l28 -28 l28 28"/>
       </g>
+      ${label(200, 590, '월세 · 인건비', 40, 'var(--figure)')}
+      ${label(690, 590, '월세 · 인건비 · 관리비', 40, 'var(--figure)')}
     </g></g>
   </svg>`,
 
@@ -582,9 +614,7 @@ const ART = {
         <rect x="520" y="350" width="110" height="90" rx="8"/>
       </g>
       <rect x="330" y="470" width="340" height="110" rx="8" fill="var(--red)"/>
-      <g fill="var(--figure-skin)" opacity=".9">
-        <rect x="380" y="510" width="160" height="20" rx="10"/>
-      </g>
+      ${label(500, 536, '임대 문의', 44, 'var(--figure-skin)')}
       ${figure('expert', 160, 620, 380)}
       ${figure('senior', 850, 620, 380, true)}
     </g></g>
@@ -619,6 +649,8 @@ const ART = {
         </g>
         <circle cx="820" cy="300" r="16" fill="var(--red)"/>
       </g>
+      ${label(250, 480, '마케팅', 46, 'var(--figure)')}
+      ${label(810, 480, '컨설팅', 46, 'var(--red)')}
     </g></g>
   </svg>`,
 

@@ -193,6 +193,14 @@ h1 em{font-style:normal;color:var(--red);}
 }
 .page b{color:var(--red);font-weight:700;}
 
+/* 하단 워드마크 */
+.brand{
+  flex:none;margin-top:14px;
+  font-weight:700;font-size:22px;letter-spacing:.42em;
+  color:var(--dim);opacity:.75;
+  text-transform:lowercase;
+}
+
 /* 마지막 카드 브랜드 서명 */
 .sign{
   flex:none;margin-top:20px;
