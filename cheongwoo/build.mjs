@@ -582,6 +582,28 @@ ${site.langs.map((l) => `    <xhtml:link rel="alternate" hreflang="${site.hrefla
 `;
 writeFileSync(join(HERE, 'sitemap.xml'), sitemap, 'utf8');
 
+/* robots.txt
+   자체 도메인을 쓰면 이 파일이 도메인 최상단에 놓여 검색엔진이 실제로 읽습니다.
+   (위코 하위 경로에 있을 때는 /weco/robots.txt 라 무시됐습니다.)
+   운영 문서는 사이트 동작과 무관하고 외부에 보일 이유가 없어 색인에서 뺍니다. */
+const robots = [
+  'User-agent: *',
+  'Allow: /',
+  '',
+  '# 운영 문서 — 색인 제외',
+  'Disallow: /README.md',
+  'Disallow: /MARKETING.md',
+  'Disallow: /DOMAIN.md',
+  'Disallow: /PLACE-정보-붙여넣기.md',
+  'Disallow: /src/',
+  'Disallow: /build.mjs',
+  '',
+  `Sitemap: ${site.baseUrl}sitemap.xml`,
+  '',
+].join('\n');
+writeFileSync(join(HERE, 'robots.txt'), robots, 'utf8');
+console.log('  ✓ robots.txt');
+
 /* GitHub Pages 커스텀 도메인 설정 파일.
    customDomain 을 채우면 만들어지고, 비우면 지웁니다. */
 const cnamePath = join(HERE, 'CNAME');
