@@ -8,6 +8,15 @@ export const site = {
   baseUrl: 'https://hwanman2.github.io/weco/cheongwoo/',
   parentUrl: 'https://hwanman2.github.io/weco/',
   defaultLang: 'ko',
+
+  // ---- 검색엔진 소유확인 코드 ----
+  // 값이 있을 때만 <meta> 태그가 생깁니다. 발급받으면 여기 넣고 다시 빌드하세요.
+  //  네이버 : searchadvisor.naver.com → 웹마스터도구 → 사이트 등록 → HTML 태그
+  //  구글   : search.google.com/search-console → 속성 추가 → HTML 태그
+  naverSiteVerification: '',
+  googleSiteVerification: '',
+  bingSiteVerification: '',
+
   langs: ['ko', 'en', 'ja', 'zh', 'tw'],
   // 언어별 파일명. 기본 언어는 index.html 로 뽑습니다.
   file: { ko: 'index.html', en: 'en.html', ja: 'ja.html', zh: 'zh.html', tw: 'tw.html' },
@@ -57,10 +66,10 @@ export const store = {
   naverBlogUrl: 'https://blog.naver.com/zzyy004',
 
   // ---- 영업 정보 ----
-  // 2026-08-15 자 블로그 후기 기준입니다.
-  // ※ 다른 곳(스레드 게시물)에는 23:00 마감 / 라스트오더 22:00 으로 적혀 있습니다.
-  //    사장님께 확인 후 맞는 쪽으로 고쳐 주세요. 이 값 하나만 고치면
-  //    홈페이지 본문·구조화 데이터·「영업 중」 배지가 전부 같이 바뀝니다.
+  // ※ 확정본은 네이버 플레이스입니다. 아래 값은 블로그 후기(2026-08-15)에서
+  //    옮긴 임시값이라 플레이스와 다를 수 있습니다.
+  //    PLACE-정보-붙여넣기.md 를 채워 주시면 여기에 반영합니다.
+  //    이 한 줄만 고치면 본문·구조화 데이터·「영업 중」 배지가 전부 같이 바뀝니다.
   hours: { open: '11:00', close: '22:00', breakStart: '15:00', breakEnd: '17:00', lastOrder: '21:00' },
   openDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
 
@@ -71,7 +80,10 @@ export const store = {
 };
 
 // 대표 메뉴. price 가 null 이면 "가격 문의" 로 표시됩니다.
-// 사진(매장 벽면 메뉴 포스터)에서 확인된 가격만 숫자로 넣었습니다.
+// ※ 확정본은 네이버 플레이스의 「메뉴」 탭입니다.
+//    아래 가격은 매장 벽면 포스터 사진에서 읽은 값이라 최신이 아닐 수 있습니다.
+//    (외부 글에는 갈비탕 13,000원 / 보약갈비탕 18,000원 / 수육(소) 17,000원 이라는
+//     값도 보여서, 확인되지 않은 것은 일부러 null 로 두었습니다.)
 // img 는 음식 사진을 확보하면 채우세요. 지금은 매장 사진밖에 없어 비워 둡니다.
 export const menu = [
   { id: 'clear',    price: 12000, img: null, signature: true },

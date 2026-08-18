@@ -34,13 +34,12 @@ window.CW_CONFIG = {
 
   /* ---- 네이버 ---- */
   naverCommonId: '',               // 네이버 공통 측정 스크립트 ID
-  naverSiteVerification: '',       // 서치어드바이저 소유확인 코드
 
   /* ---- 카카오 ---- */
   kakaoPixelId: '',
 
-  /* ---- 구글 서치콘솔 ---- */
-  googleSiteVerification: '',
+  /* 검색엔진 소유확인(네이버·구글) 코드는 여기가 아니라
+     src/store.mjs 에 넣습니다 — <meta> 태그로 HTML 에 박혀야 하기 때문입니다. */
 
   /* ---- 동의 관리 ----
      EU/영국/스위스에서 접속한 방문자는 동의 전까지 광고 쿠키를 막습니다

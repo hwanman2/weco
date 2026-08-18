@@ -262,6 +262,9 @@ function page(lang) {
 <meta name="keywords" content="${esc(L.keywords)}" />
 <meta name="author" content="${esc(store.legalKo)}" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+${site.naverSiteVerification ? `<meta name="naver-site-verification" content="${site.naverSiteVerification}" />` : '<!-- 네이버 서치어드바이저 소유확인 코드를 src/store.mjs 의 naverSiteVerification 에 넣으세요 -->'}
+${site.googleSiteVerification ? `<meta name="google-site-verification" content="${site.googleSiteVerification}" />` : '<!-- 구글 서치콘솔 소유확인 코드를 src/store.mjs 의 googleSiteVerification 에 넣으세요 -->'}
+${site.bingSiteVerification ? `<meta name="msvalidate.01" content="${site.bingSiteVerification}" />` : ''}
 <meta name="theme-color" content="#171310" />
 
 <link rel="canonical" href="${url}" />
