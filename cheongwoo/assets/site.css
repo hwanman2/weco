@@ -80,12 +80,13 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* ---------- 히어로 ---------- */
 .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;padding:8rem 0 3.4rem;overflow:hidden}
 .hero-bg{position:absolute;inset:0}
-.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 62%;transform:scale(1.06);animation:heroIn 14s ease-out forwards}
+.hero-bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);animation:heroIn 14s ease-out forwards}
 @keyframes heroIn{to{transform:scale(1)}}
 @media (prefers-reduced-motion:reduce){.hero-bg img{animation:none;transform:none}}
 .hero-veil{position:absolute;inset:0;background:
   linear-gradient(180deg,rgba(14,10,7,.66) 0%,rgba(14,10,7,.18) 34%,rgba(14,10,7,.52) 68%,rgba(14,10,7,.88) 100%)}
-.hero-inner{position:relative;color:#fff;max-width:760px}
+.hero-inner{position:relative;color:#fff}
+.hero-inner > *{max-width:760px}
 .eyebrow{
   display:inline-flex;align-items:center;gap:.5rem;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;
   color:rgba(255,255,255,.82);margin-bottom:1.1rem
@@ -106,6 +107,24 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .btn-ink:hover{background:#332a25;transform:translateY(-2px)}
 .btn-outline{border:1px solid var(--line);background:#fff;color:var(--ink)}
 .btn-outline:hover{border-color:var(--ink);transform:translateY(-2px);box-shadow:var(--shadow)}
+
+
+/* ---------- 히어로가 음식 사진일 때 ----------
+   외관 사진은 위아래로 어둡게 덮어도 되지만, 음식 사진은 그러면 요리가 죽습니다.
+   그래서 어둠을 왼쪽(글씨 쪽)으로 몰아 두고 오른쪽 그릇은 살려 둡니다. */
+.hero--food .hero-veil{
+  background:
+    linear-gradient(100deg,rgba(12,8,5,.9) 0%,rgba(12,8,5,.72) 34%,rgba(12,8,5,.24) 62%,rgba(12,8,5,.1) 100%),
+    linear-gradient(180deg,rgba(12,8,5,.5) 0%,rgba(12,8,5,0) 26%,rgba(12,8,5,0) 62%,rgba(12,8,5,.6) 100%);
+}
+.hero--food .hero-inner > *{max-width:640px}
+@media (max-width:860px){
+  /* 세로 화면에서는 옆으로 못 피하니 아래쪽을 진하게 덮습니다 */
+  .hero--food .hero-veil{
+    background:linear-gradient(180deg,rgba(12,8,5,.6) 0%,rgba(12,8,5,.14) 24%,rgba(12,8,5,.68) 50%,rgba(12,8,5,.95) 100%);
+  }
+  .hero--food .hero-inner > *{max-width:none}
+}
 
 /* ---------- 빠른 정보 바 ---------- */
 .quickbar{background:var(--ink);color:rgba(255,255,255,.86);padding:1.7rem 0}
@@ -262,7 +281,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .mobile-bar{display:flex}
   body{padding-bottom:4.6rem}
   .hero{min-height:92svh;padding-bottom:2.6rem}
-  .hero-bg img{object-position:center 42%}
   .hero-veil{background:linear-gradient(180deg,rgba(14,10,7,.62) 0%,rgba(14,10,7,.34) 22%,rgba(14,10,7,.74) 52%,rgba(14,10,7,.95) 100%)}
   .hero h1{font-size:clamp(1.95rem,8.2vw,2.6rem)}
   .foot{padding-bottom:5.6rem}
@@ -307,5 +325,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 }
 .open-now[data-state="open"]{background:rgba(28,107,72,.9);color:#fff}
 .open-now[data-state="break"]{background:rgba(192,138,62,.9);color:#1a1208}
-.open-now[data-state="closed"]{background:rgba(255,255,255,.13);color:rgba(255,255,255,.62)}
+.open-now[data-state="closed"],
+.open-now[data-state="before"]{background:rgba(255,255,255,.13);color:rgba(255,255,255,.62)}
 .open-now:empty{display:none}

@@ -9,7 +9,7 @@ export const menuNames = {
     spicy:      { n: '얼큰해장국',      d: '다진 양념을 풀어 낸 얼큰한 국물. 전날 술자리 뒤에 가장 많이 나가는 메뉴.' },
     galbitang:  { n: '청우 약전 갈비탕', d: '갈비를 산더미로 올린 맑은 갈비탕. 어르신 모시고 오시기 좋은 대표 메뉴.' },
     kalguksu:   { n: '얼큰장칼국수',    d: '된장을 풀어 끓인 얼큰한 칼국수. 국물과 면을 같이 즐기고 싶을 때.' },
-    ribs:       { n: '매운갈비찜',      d: '유튜브 먹방으로 알려진 메뉴. 2~4인 나눠 먹기 좋은 크기입니다.' },
+    ribs:       { n: '매운갈비찜',      d: '유튜브 먹방으로 알려진 메뉴. 대구식 찜갈비의 매운맛 그대로, 2~4인 나눠 먹기 좋은 크기입니다.' },
     oxtail:     { n: '소꼬리찜',        d: '아침부터 눌러 낸 소꼬리. 가족 모임·회식 상차림용.' },
     suyuk:      { n: '아롱사태수육',    d: '결 좋은 아롱사태를 삶아 얇게 저며 냅니다. 어르신 상에 잘 어울립니다.' },
     naengmyeon: { n: '평양냉면 · 고기냉국수', d: '여름 한정. 슴슴한 육수의 평양냉면과 고기 고명을 얹은 냉국수.' },
@@ -102,12 +102,13 @@ export const t = {
   ko: {
     htmlLang: 'ko',
     langName: '한국어',
-    title: '청우해장 — 대구 중구 약전골목 해장국·갈비탕 맛집 | 반월당역 대구맛집',
+    title: '청우해장 — 대구 약전골목 갈비탕·매운갈비찜·해장국 | 반월당역 대구맛집',
     description:
-      '대구 중구 남성로 청우해장. 약령시 약전골목 한식당으로 맑은해장국·얼큰해장국·갈비탕·매운갈비찜을 냅니다. 반월당역 도보권, 근대골목투어 코스 대구맛집. 매일 11:00~22:00, 전화 예약 053-255-7052.',
+      '대구 중구 남성로 청우해장. 약령시 약전골목 한식당으로 갈비 산더미 맑은갈비탕, 대구식 매운갈비찜(찜갈비), 맑은·얼큰 해장국, 소꼬리찜을 냅니다. 반월당역 도보 5분, 근대골목투어 코스 대구맛집. 매일 11:00~22:00, 전화 예약 053-255-7052.',
     keywords:
-      '대구맛집, 대구 맛집, 대구중구맛집, 반월당 맛집, 약전골목 맛집, 약령시 맛집, 해장국, 대구해장국, 갈비탕, 맑은갈비탕, 매운갈비찜, 소꼬리찜, 청우해장, 근대골목투어, 동성로 맛집, 서문시장 맛집, 대구여행, 대구 가볼만한곳, 반월당역 맛집, 대구 한식당',
+      '대구맛집, 대구 맛집, 대구중구맛집, 반월당 맛집, 반월당역 맛집, 약전골목 맛집, 약령시 맛집, 갈비탕, 맑은갈비탕, 대구 갈비탕, 갈비찜, 매운갈비찜, 소갈비찜, 대구찜갈비, 찜갈비, 대구 찜갈비 맛집, 해장국, 얼큰해장국, 맑은해장국, 대구해장국, 소꼬리찜, 아롱사태수육, 평양냉면, 청우해장, 근대골목투어, 대구근대골목, 동성로 맛집, 서문시장 맛집, 대구여행, 대구 가볼만한곳, 대구10미, 대구 한식당, 가족모임 식당 대구',
     ogLocale: 'ko_KR',
+    heroAltFood: '청우해장 대표 메뉴 — 갈비를 산더미로 올린 맑은 갈비탕',
 
     nav: { menu: '메뉴', story: '이야기', hood: '약전골목', gallery: '매장', visit: '오시는 길', faq: '자주 묻는 질문' },
     navReserve: '전화 예약',
@@ -116,7 +117,7 @@ export const t = {
     heroBadge: '대구 중구 · 약령시 약전골목',
     heroTitle: '해장에도, 대접에도<br>한 그릇이면 됩니다',
     heroLede:
-      '반월당역에서 걸어 5분. 약전골목 안쪽 <strong>청우해장</strong>은 뼈를 오래 고아 낸 맑은 해장국과 갈비 산더미 갈비탕을 냅니다. 근대골목투어 중간에, 회식 다음 날 아침에, 어르신 모시는 자리에.',
+      '반월당역에서 걸어 5분. 약전골목 안쪽 <strong>청우해장</strong>은 뼈를 오래 고아 낸 맑은 해장국, 갈비 산더미 <strong>갈비탕</strong>, 대구식 <strong>매운갈비찜</strong>을 냅니다. 근대골목투어 중간에, 회식 다음 날 아침에, 어르신 모시는 자리에.',
     heroCtaCall: '전화로 예약하기',
     heroCtaDir: '길찾기',
     heroCtaMenu: '메뉴 보기',
@@ -202,8 +203,9 @@ export const t = {
     description:
       'A Korean restaurant in Yakjeon-golmok, the herbal medicine alley of central Daegu. Clear and spicy haejang-guk, short rib soup, braised ribs. 5 minutes on foot from Banwoldang Station. Open daily 11:00–22:00.',
     keywords:
-      'Daegu restaurant, Daegu food, haejang-guk, Korean hangover soup, galbitang, Korean beef soup, Banwoldang, Yangnyeongsi, Daegu Modern History Street, things to eat in Daegu, Korean restaurant Daegu, Seomun Market food',
+      'Daegu restaurant, Daegu food, what to eat in Daegu, haejang-guk, Korean hangover soup, galbitang, Korean beef short rib soup, galbijjim, Daegu braised short ribs, spicy braised ribs, Banwoldang, Yangnyeongsi herbal medicine market, Daegu Modern History Street, Korean restaurant Daegu, Seomun Market food, Daegu 10 tastes',
     ogLocale: 'en_US',
+    heroAltFood: 'Galbi-tang at Cheongwoo Haejang — beef short ribs piled in clear broth',
 
     nav: { menu: 'Menu', story: 'Our Story', hood: 'The Alley', gallery: 'The Room', visit: 'Getting Here', faq: 'FAQ' },
     navReserve: 'Call to book',
@@ -298,8 +300,9 @@ export const t = {
     description:
       '大邱中区南城路の韓国料理店。牛骨をじっくり煮出したヘジャンクク、カルビが山盛りのカルビタン、辛口カルビチム。半月堂駅から徒歩5分、近代路地ツアーの途中に。毎日11:00〜22:00。',
     keywords:
-      '大邱 グルメ, 大邱 レストラン, 大邱 韓国料理, ヘジャンクク, カルビタン, 半月堂, 薬令市, 大邱 近代路地, 大邱 旅行, 西門市場 グルメ, 東城路 グルメ',
+      '大邱 グルメ, 大邱 レストラン, 大邱 韓国料理, 大邱 名物, ヘジャンクク, カルビタン, カルビチム, 大邱 カルビチム, 辛口カルビチム, 半月堂, 薬令市, 大邱 近代路地, 大邱 旅行, 西門市場 グルメ, 東城路 グルメ, 大邱十味',
     ogLocale: 'ja_JP',
+    heroAltFood: 'チョンウヘジャンのカルビタン — 骨付きカルビが山盛りの澄んだスープ',
 
     nav: { menu: 'メニュー', story: 'お店について', hood: '薬田横丁', gallery: '店内', visit: 'アクセス', faq: 'よくある質問' },
     navReserve: '電話で予約',
@@ -394,8 +397,9 @@ export const t = {
     description:
       '位于大邱中区南城路的韩式餐厅。清汤与香辣解酒汤、堆满牛排骨的排骨汤、辣炖牛排骨。半月堂站步行5分钟，近代胡同游览路线上。每天 11:00–22:00 营业。',
     keywords:
-      '大邱美食, 大邱餐厅, 大邱韩餐, 解酒汤, 排骨汤, 半月堂, 药令市, 大邱近代胡同, 大邱旅游, 西门市场美食, 东城路美食',
+      '大邱美食, 大邱美食推荐, 大邱必吃, 大邱餐厅, 大邱韩餐, 大邱自由行, 解酒汤, 排骨汤, 炖排骨, 辣炖排骨, 大邱炖排骨, 半月堂, 药令市, 大邱近代胡同, 大邱旅游, 大邱景点, 西门市场美食, 东城路美食, 大邱十味',
     ogLocale: 'zh_CN',
+    heroAltFood: '青友解酲的排骨汤 — 清汤里堆满牛排骨',
 
     nav: { menu: '菜单', story: '关于我们', hood: '药田胡同', gallery: '店内', visit: '交通', faq: '常见问题' },
     navReserve: '电话预订',

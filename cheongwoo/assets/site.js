@@ -124,14 +124,24 @@
     mapFrame.src = mapFrame.getAttribute('data-src');
   }
 
-  /* ---- 지금 영업 중인지 표시 (한국 시간 기준) ---- */
+  /* ---- 지금 영업 중인지 표시 (한국 시간 기준) ----
+     영업시간은 페이지의 data-hours 로 내려옵니다. 시간이 바뀌면
+     src/store.mjs 의 hours 만 고치고 다시 빌드하면 여기까지 같이 바뀝니다. ---- */
   var badge = $('#open-now');
   if (badge) {
-    var kstNow = new Date(Date.now() + (new Date().getTimezoneOffset() * 60000) + 9 * 3600000);
-    var mins = kstNow.getHours() * 60 + kstNow.getMinutes();
-    var open = mins >= 11 * 60 && mins < 22 * 60;
-    var onBreak = mins >= 15 * 60 && mins < 17 * 60;
-    var state = onBreak ? 'break' : (open ? 'open' : 'closed');
+    var hm = function (s) { var p = s.split(':'); return (+p[0]) * 60 + (+p[1]); };
+    var parts = (badge.getAttribute('data-hours') || '11:00,15:00,17:00,22:00').split(',');
+    var open = hm(parts[0]), bStart = hm(parts[1]), bEnd = hm(parts[2]), close = hm(parts[3]);
+
+    var now = new Date();
+    var kst = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + 9 * 3600000);
+    var mins = kst.getHours() * 60 + kst.getMinutes();
+
+    var state;
+    if (mins < open) state = 'before';                                   // 아직 문 열기 전
+    else if (mins >= close) state = 'closed';                            // 마감
+    else state = (mins >= bStart && mins < bEnd) ? 'break' : 'open';     // 영업 중 / 브레이크
+
     badge.textContent = badge.getAttribute('data-' + state) || '';
     badge.setAttribute('data-state', state);
   }

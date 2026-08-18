@@ -39,22 +39,35 @@ export const store = {
   lat: 35.8687847,
   lng: 128.5884600,
 
-  // 외부 플레이스 식별자
+  // ---- 외부 플레이스 식별자 ----
+  // 카카오는 확인 완료. 아래 ID 들은 채우면 링크가 「검색」이 아니라
+  // 「그 가게 페이지」로 바로 꽂힙니다. 비어 있으면 이름+주소 검색으로 동작합니다.
   kakaoPlaceId: '983201124',
-  // 아래 두 값은 사장님 계정에서 확인 후 채우면 버튼이 자동으로 살아납니다.
-  naverPlaceId: '',        // 네이버 스마트플레이스 ID (예: '1234567890')
-  naverBookingUrl: '',     // 네이버 예약 URL
-  instagramUrl: '',
+
+  // 네이버지도에서 매장을 열었을 때 주소창의
+  // map.naver.com/p/entry/place/**1234567890** ← 이 숫자
+  naverPlaceId: '',
+
+  // 구글지도에서 매장을 열고 공유 → 링크 복사 하면 나오는
+  // maps.app.goo.gl/... 또는 ?cid=1234567890 의 숫자
+  googleCid: '',
+
+  naverBookingUrl: '',     // 네이버 예약 URL (있으면 예약 버튼 생성)
+  instagramUrl: 'https://www.instagram.com/chungwoo.official/',
   naverBlogUrl: 'https://blog.naver.com/zzyy004',
 
-  // 영업 정보
+  // ---- 영업 정보 ----
+  // 2026-08-15 자 블로그 후기 기준입니다.
+  // ※ 다른 곳(스레드 게시물)에는 23:00 마감 / 라스트오더 22:00 으로 적혀 있습니다.
+  //    사장님께 확인 후 맞는 쪽으로 고쳐 주세요. 이 값 하나만 고치면
+  //    홈페이지 본문·구조화 데이터·「영업 중」 배지가 전부 같이 바뀝니다.
   hours: { open: '11:00', close: '22:00', breakStart: '15:00', breakEnd: '17:00', lastOrder: '21:00' },
   openDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
 
   priceRange: '₩₩',
   currency: 'KRW',
   seats: 40,          // 40명 이하 단체 예약 가능
-  parking: false,     // 전용 주차장 없음 → 인근 공영주차장
+  parking: false,     // 전용 주차장 없음 → 인근 공영주차장 (가게 앞 1~2대 가능하다는 제보 있음, 확인 필요)
 };
 
 // 대표 메뉴. price 가 null 이면 "가격 문의" 로 표시됩니다.
@@ -85,8 +98,30 @@ export const gallery = [
   { src: 'images/cheongwoo-10.jpg', key: 'door',      w: 1067, h: 1600 },
 ];
 
-export const hero = 'images/cheongwoo-02.jpg';
-export const ogImage = 'images/cheongwoo-02.jpg';
+// ---------------------------------------------------------------------------
+// 첫 화면(히어로) 사진
+// ---------------------------------------------------------------------------
+// 식당 홈페이지의 첫 화면은 음식 사진이 가장 강합니다.
+// 음식 사진을 확보하면 아래 두 줄만 바꾸고 `node build.mjs` 하세요:
+//
+//   src:  'images/cheongwoo-food-01.jpg'
+//   kind: 'food'
+//
+// kind 를 'food' 로 두면 어둡게 덮는 그라데이션이 왼쪽으로 쏠려서
+// 글씨는 읽히고 오른쪽의 음식은 가려지지 않습니다.
+// position 은 사진에서 어느 부분을 화면 중앙에 둘지 정합니다.
+// (그릇이 아래쪽에 있으면 'center 60%', 위쪽이면 'center 35%')
+export const hero = {
+  src: 'images/cheongwoo-02.jpg',
+  kind: 'exterior',          // 'food' | 'exterior' | 'interior'
+  position: 'center 62%',
+  width: 1600,
+  height: 1067,
+};
+
+// 카카오톡·네이버 공유 미리보기 카드에 뜨는 사진.
+// 보통 히어로와 같게 두면 됩니다.
+export const ogImage = hero.src;
 
 // 이미지가 상위 폴더(/weco/images/)에 있으므로 경로 앞에 ../ 를 붙입니다.
 export const imgBase = '../';

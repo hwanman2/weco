@@ -41,17 +41,30 @@ const won = (n) => n.toLocaleString('ko-KR') + '원';
 const money = (n, lang) => lang === 'ko' ? won(n) : '₩' + n.toLocaleString('en-US');
 
 /* ------------------------- 외부 지도 / 길찾기 링크 ------------------------- */
-const NAME_ENC = encodeURIComponent(store.nameKo);
+const NAME_ENC = encodeURIComponent(store.legalKo);              // '한식당 청우해장'
+// 이름 + 도로명주소 — 구글이 이 조합이면 다른 지점과 헷갈리지 않고 정확히 찾습니다.
+const NAME_ADDR = encodeURIComponent(`${store.legalKo} ${store.roadKo}`);
+
 const links = {
-  naverSearch: `https://map.naver.com/p/search/${NAME_ENC}`,
+  // ---- 네이버 ----
+  // 플레이스 ID 를 채우면 가게 페이지로 직행, 비어 있으면 이름 검색으로 동작합니다.
   naverPlace: store.naverPlaceId
     ? `https://map.naver.com/p/entry/place/${store.naverPlaceId}`
     : `https://map.naver.com/p/search/${NAME_ENC}`,
-  naverDir: `https://map.naver.com/p/directions/-/${store.lng},${store.lat},${NAME_ENC}/-/transit`,
+  naverDir: store.naverPlaceId
+    ? `https://map.naver.com/p/entry/place/${store.naverPlaceId}?c=15.00,0,0,0,dh`
+    : `https://map.naver.com/p/directions/-/${store.lng},${store.lat},${NAME_ENC}/-/transit`,
+
+  // ---- 카카오 ----
   kakaoPlace: `https://place.map.kakao.com/${store.kakaoPlaceId}`,
   kakaoDir: `https://map.kakao.com/link/to/${NAME_ENC},${store.lat},${store.lng}`,
-  googleDir: `https://www.google.com/maps/dir/?api=1&destination=${store.lat},${store.lng}`,
-  googlePlace: `https://www.google.com/maps/search/?api=1&query=${store.lat},${store.lng}`,
+
+  // ---- 구글 ----
+  // CID 를 채우면 등록된 비즈니스 프로필로 직행합니다.
+  googlePlace: store.googleCid
+    ? `https://maps.google.com/?cid=${store.googleCid}`
+    : `https://www.google.com/maps/search/?api=1&query=${NAME_ADDR}`,
+  googleDir: `https://www.google.com/maps/dir/?api=1&destination=${NAME_ADDR}`,
 };
 // 오픈스트리트맵 임베드 — API 키가 필요 없고 어느 나라에서 접속해도 뜹니다.
 const d = 0.0042;
@@ -86,7 +99,7 @@ function jsonLd(lang) {
     url,
     telephone: '+82-53-255-7052',
     image: gallery.slice(0, 6).map((g) => imgAbs(g.src)),
-    logo: imgAbs(hero),
+    logo: imgAbs(hero.src),
     priceRange: store.priceRange,
     currenciesAccepted: store.currency,
     servesCuisine: ['Korean', 'Korean soup', 'Haejang-guk', 'Galbi-tang'],
@@ -279,7 +292,7 @@ ${site.langs.filter((l) => l !== lang).map((l) => `<meta property="og:locale:alt
 
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preload" as="image" href="${img(hero)}" fetchpriority="high" />
+<link rel="preload" as="image" href="${img(hero.src)}" fetchpriority="high" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600&display=swap" />
 <link rel="stylesheet" href="assets/site.css?v=1" />
@@ -316,9 +329,11 @@ ${site.langs.filter((l) => l !== lang).map((l) => `<meta property="og:locale:alt
 <main id="main">
 
 <!-- ================= 히어로 ================= -->
-<section class="hero">
+<section class="hero hero--${hero.kind}">
   <div class="hero-bg">
-    <img src="${img(hero)}" alt="${esc(galleryAlt[lang].exterior)}" width="1600" height="1067" fetchpriority="high" decoding="async" />
+    <img src="${img(hero.src)}" alt="${esc(hero.kind === 'food' ? L.heroAltFood : galleryAlt[lang].exterior)}"
+         width="${hero.width}" height="${hero.height}" style="object-position:${hero.position}"
+         fetchpriority="high" decoding="async" />
   </div>
   <div class="hero-veil"></div>
   <div class="container hero-inner">
@@ -339,9 +354,11 @@ ${site.langs.filter((l) => l !== lang).map((l) => `<meta property="og:locale:alt
     <div class="quick">
       <h3>${esc(L.quickHours)}</h3>
       <p>${esc(L.quickHoursVal)} <span id="open-now" class="open-now"
+        data-hours="${store.hours.open},${store.hours.breakStart},${store.hours.breakEnd},${store.hours.close}"
         data-open="${lang === 'ko' ? '영업 중' : lang === 'ja' ? '営業中' : lang === 'zh' ? '营业中' : lang === 'tw' ? '營業中' : 'Open now'}"
         data-break="${lang === 'ko' ? '브레이크타임' : lang === 'ja' ? '休憩中' : lang === 'zh' ? '休息中' : lang === 'tw' ? '休息中' : 'On break'}"
-        data-closed="${lang === 'ko' ? '영업 종료' : lang === 'ja' ? '営業時間外' : lang === 'zh' ? '已打烊' : lang === 'tw' ? '已打烊' : 'Closed'}"></span></p>
+        data-before="${lang === 'ko' ? '영업 전' : lang === 'ja' ? '開店前' : lang === 'zh' ? '尚未营业' : lang === 'tw' ? '尚未營業' : 'Opens ' + store.hours.open}"
+        data-closed="${lang === 'ko' ? '영업 종료' : lang === 'ja' ? '営業終了' : lang === 'zh' ? '已打烊' : lang === 'tw' ? '已打烊' : 'Closed'}"></span></p>
       <small>${esc(L.quickBreak)}</small>
     </div>
     <div class="quick">
@@ -461,6 +478,7 @@ ${hoodSection(lang)}
         <a class="btn btn-ghost" href="tel:${store.telSafeHref}" data-track="call" data-track-label="reserve-safe">${esc(L.reserveCallSafe)}</a>
         ${store.naverBookingUrl ? `<a class="btn btn-ghost" href="${store.naverBookingUrl}" target="_blank" rel="noopener" data-track="reserve" data-track-label="naver-booking">${ICON.book}${esc(L.reserveNaver)}</a>` : ''}
         ${store.naverBlogUrl ? `<a class="btn btn-ghost" href="${store.naverBlogUrl}" target="_blank" rel="noopener" data-track="blog" data-track-label="naver-blog">${esc(L.reserveBlog)}</a>` : ''}
+        ${store.instagramUrl ? `<a class="btn btn-ghost" href="${store.instagramUrl}" target="_blank" rel="noopener" data-track="blog" data-track-label="instagram">Instagram</a>` : ''}
       </div>
       <p class="reserve-note">${esc(L.reserveHoursNote)}</p>
     </div>
@@ -496,6 +514,7 @@ ${hoodSection(lang)}
         <a href="${links.kakaoPlace}" target="_blank" rel="noopener" data-track="directions" data-track-label="footer-kakao">KakaoMap</a>
         <a href="${links.googlePlace}" target="_blank" rel="noopener" data-track="directions" data-track-label="footer-google">Google Maps</a>
         ${store.naverBlogUrl ? `<a href="${store.naverBlogUrl}" target="_blank" rel="noopener" data-track="blog" data-track-label="footer-blog">Blog</a>` : ''}
+        ${store.instagramUrl ? `<a href="${store.instagramUrl}" target="_blank" rel="noopener" data-track="blog" data-track-label="footer-instagram">Instagram</a>` : ''}
       </nav>
     </div>
     <div class="foot-bottom">
