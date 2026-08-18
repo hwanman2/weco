@@ -8,4 +8,14 @@
   </url>
   <url><loc>https://hwanman2.github.io/weco/en.html</loc></url>
   <url><loc>https://hwanman2.github.io/weco/vi.html</loc></url>
+  <url>
+    <loc>https://hwanman2.github.io/weco/cheongwoo/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url><loc>https://hwanman2.github.io/weco/cheongwoo/en.html</loc></url>
+  <url><loc>https://hwanman2.github.io/weco/cheongwoo/ja.html</loc></url>
+  <url><loc>https://hwanman2.github.io/weco/cheongwoo/zh.html</loc></url>
+  <url><loc>https://hwanman2.github.io/weco/cheongwoo/tw.html</loc></url>
 </urlset>

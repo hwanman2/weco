@@ -686,3 +686,11 @@ html.has-cursor, html.has-cursor *{cursor:none !important;}
 .lang-sw a:hover{color:var(--dim);}
 .lang-sw a.on{color:var(--ink);}
 @media (max-width:900px){.lang-sw{margin-left:auto;margin-right:4px;}}
+
+/* 포트폴리오 카드에서 매장 홈페이지로 (내부 링크 — 검색 유입 연결) */
+.proj-site{
+  display:inline-block;margin-top:.5rem;font-size:.78rem;letter-spacing:.02em;
+  color:#c08a3e;border-bottom:1px solid rgba(192,138,62,.35);padding-bottom:1px;transition:.25s
+}
+.proj-site:hover{color:#d59a48;border-color:#d59a48}
+

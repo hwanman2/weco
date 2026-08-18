@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://hwanman2.github.io/weco/sitemap.xml
+Sitemap: https://hwanman2.github.io/weco/cheongwoo/sitemap.xml
