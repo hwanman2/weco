@@ -218,9 +218,10 @@ GitHub Pages 는 **`main` 브랜치만** 서비스합니다. 지금 이 홈페�
 `hwanman2.github.io/weco/cheongwoo/` 는 인테리어 회사 사이트의 하위 폴더입니다.
 - 장점: 위코 사이트가 쌓아 둔 신뢰도를 일부 물려받습니다. 지금 당장은 유리합니다.
 - 단점: 검색엔진 입장에서 「청우해장」은 독립된 사이트가 아닙니다.
-- 나중에 `cheongwoohaejang.com` 같은 도메인(연 1~2만원)을 사면
-  `src/store.mjs` 의 `baseUrl` 한 줄만 바꾸고 다시 빌드하면 됩니다.
-  지금 구조 그대로 옮겨집니다.
+- **도메인을 사기로 하셨으니 이 단점은 곧 없어집니다.**
+  `src/store.mjs` 의 `customDomain` 한 줄만 채우면 주소·사이트맵·구조화
+  데이터·CNAME 이 전부 새 도메인으로 바뀝니다. 구매 절차와 DNS 설정은
+  **`DOMAIN.md`** 를 보세요.
 
 ## 6. 구조
 
@@ -237,8 +238,12 @@ cheongwoo/
 │  ├─ site.js          화면 동작 (외부 라이브러리 없음)
 │  ├─ config.js        ★ 광고·측정 ID — 여기만 고치면 픽셀이 붙습니다
 │  └─ tracking.js      메타·구글·카카오·네이버 통합 전환 추적
+├─ images/            매장 사진 10장 (이 폴더 안에 있어 상위 폴더에 의존하지 않습니다)
+├─ DOMAIN.md          도메인 구매·연결 안내
+├─ PLACE-정보-붙여넣기.md   영업시간·가격 확정본 받는 양식
 ├─ index.html en.html ja.html zh.html tw.html    ← 생성물
-└─ sitemap.xml                                    ← 생성물
+├─ sitemap.xml                                    ← 생성물
+└─ CNAME                                          ← 생성물 (도메인 설정 시에만)
 ```
 
 외부 라이브러리는 **글꼴 두 개**(Pretendard, Noto Serif KR)뿐이고

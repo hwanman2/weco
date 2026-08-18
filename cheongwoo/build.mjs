@@ -11,7 +11,7 @@
    의존성은 없습니다 — Node 18 이상이면 그대로 돕니다.
    ========================================================================== */
 
-import { writeFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, mkdirSync, existsSync, rmSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -32,11 +32,15 @@ const esc = (s = '') => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
   .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 /** 메타 설명·JSON-LD 에 넣기 위해 태그를 벗겨 냅니다. */
 const strip = (s = '') => String(s).replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
-const abs = (p) => site.baseUrl + p.replace(/^\.\//, '');
+/** 페이지 절대 주소. 기본 언어의 index.html 은 디렉터리 주소(/)로 씁니다 —
+ *  `/` 와 `/index.html` 을 둘 다 노출하면 검색엔진이 중복 페이지로 봅니다. */
+const abs = (p) => site.baseUrl + (p === site.file[site.defaultLang] ? '' : p.replace(/^\.\//, ''));
 /** images/ 는 상위 폴더에 있으므로 ../ 를 붙입니다. */
 const img = (p) => imgBase + p;
 /** 절대 URL(구조화 데이터·OG 용) */
-const imgAbs = (p) => site.parentUrl + p;
+/** 공유 카드·구조화 데이터에 넣을 절대 주소. 이미지가 사이트 안으로 들어와서
+ *  상위 폴더가 아니라 자기 주소 기준으로 만듭니다. */
+const imgAbs = (p) => site.baseUrl + p.replace(/^\.\//, '');
 const won = (n) => n.toLocaleString('ko-KR') + '원';
 const money = (n, lang) => lang === 'ko' ? won(n) : '₩' + n.toLocaleString('en-US');
 
@@ -154,10 +158,12 @@ function jsonLd(lang) {
 
   const crumbs = {
     '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'WECO', item: site.parentUrl },
-      { '@type': 'ListItem', position: 2, name: store.nameKo, item: url },
-    ],
+    itemListElement: site.customDomain
+      ? [{ '@type': 'ListItem', position: 1, name: store.nameKo, item: site.baseUrl }]
+      : [
+          { '@type': 'ListItem', position: 1, name: 'WECO', item: site.parentUrl },
+          { '@type': 'ListItem', position: 2, name: store.nameKo, item: url },
+        ],
   };
 
   // 주변 관광지 — 「대구여행 / 근대골목」 검색으로 들어오는 유입을 잡습니다.
@@ -575,5 +581,16 @@ ${site.langs.map((l) => `    <xhtml:link rel="alternate" hreflang="${site.hrefla
 </urlset>
 `;
 writeFileSync(join(HERE, 'sitemap.xml'), sitemap, 'utf8');
+
+/* GitHub Pages 커스텀 도메인 설정 파일.
+   customDomain 을 채우면 만들어지고, 비우면 지웁니다. */
+const cnamePath = join(HERE, 'CNAME');
+if (site.customDomain) {
+  writeFileSync(cnamePath, site.customDomain + '\n', 'utf8');
+  console.log(`  ✓ CNAME       ${site.customDomain}`);
+} else if (existsSync(cnamePath)) {
+  rmSync(cnamePath);
+  console.log('  ✓ CNAME       제거 (customDomain 비어 있음)');
+}
 console.log(`  ✓ sitemap.xml (${site.langs.length} urls)`);
 console.log(`\n총 ${(bytes / 1024).toFixed(1)} KB · ${site.langs.length}개 언어 생성 완료`);

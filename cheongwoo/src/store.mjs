@@ -4,8 +4,20 @@
 // ---------------------------------------------------------------------------
 
 export const site = {
-  // GitHub Pages 로 배포되는 실제 주소. 도메인을 새로 사면 이 값만 바꾸세요.
-  baseUrl: 'https://hwanman2.github.io/weco/cheongwoo/',
+  // ---------------------------------------------------------------------
+  // 사이트 주소
+  // ---------------------------------------------------------------------
+  // 도메인을 사면 customDomain 한 줄만 채우세요. 그러면
+  //   · 모든 페이지의 canonical / hreflang / og:url
+  //   · sitemap.xml
+  //   · 구조화 데이터의 주소
+  //   · GitHub Pages 용 CNAME 파일
+  // 이 전부 새 도메인으로 바뀝니다. 빈 문자열이면 지금 주소를 씁니다.
+  customDomain: '',                  // 예: 'cheongwoohaejang.com'
+
+  // 도메인이 없을 때 쓰는 현재 주소 (GitHub Pages 하위 경로)
+  fallbackUrl: 'https://hwanman2.github.io/weco/cheongwoo/',
+
   parentUrl: 'https://hwanman2.github.io/weco/',
   defaultLang: 'ko',
 
@@ -23,6 +35,11 @@ export const site = {
   // 검색엔진에 노출할 hreflang 코드
   hreflang: { ko: 'ko-KR', en: 'en', ja: 'ja', zh: 'zh-Hans', tw: 'zh-Hant' },
 };
+
+// 실제로 쓰이는 최종 주소. 도메인이 있으면 그쪽, 없으면 현재 주소.
+site.baseUrl = site.customDomain
+  ? `https://${site.customDomain}/`
+  : site.fallbackUrl;
 
 export const store = {
   nameKo: '청우해장',
@@ -135,5 +152,6 @@ export const hero = {
 // 보통 히어로와 같게 두면 됩니다.
 export const ogImage = hero.src;
 
-// 이미지가 상위 폴더(/weco/images/)에 있으므로 경로 앞에 ../ 를 붙입니다.
-export const imgBase = '../';
+// 이미지는 이 폴더 안(cheongwoo/images/)에 있습니다. 상위 폴더에 의존하지
+// 않으므로, 나중에 이 폴더만 떼어 별도 저장소·도메인으로 옮겨도 그대로 돕니다.
+export const imgBase = '';
