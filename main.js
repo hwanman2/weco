@@ -318,6 +318,23 @@ const FORM_MSG = ({
 // 견적문의 → FormSubmit.co (계정 불필요, 이메일로 수신)
 const INQUIRY_ENDPOINT = 'https://formsubmit.co/ajax/storm2119@gmail.com'
 
+// 유입 경로 — 컨설팅 페이지에서 넘어왔다면 그 값을 그대로 쓰고,
+// 이 페이지로 바로 들어왔다면 여기서 기록한다.
+const SOURCE_KEY = 'weco_source'
+const SOURCE_LABELS = { ig: '인스타그램', instagram: '인스타그램', kakao: '카카오톡', naver: '네이버', threads: '스레드', youtube: '유튜브' }
+try {
+  const utm = new URLSearchParams(location.search).get('utm_source')
+  if (utm) {
+    sessionStorage.setItem(SOURCE_KEY, SOURCE_LABELS[utm.toLowerCase()] || utm)
+  } else if (!sessionStorage.getItem(SOURCE_KEY)) {
+    sessionStorage.setItem(SOURCE_KEY, document.referrer ? new URL(document.referrer).hostname : '직접 접속')
+  }
+} catch (e) { /* 시크릿 모드 등에서 저장이 막혀도 문의는 정상 접수 */ }
+
+const getSource = () => {
+  try { return sessionStorage.getItem(SOURCE_KEY) || '확인 불가' } catch (e) { return '확인 불가' }
+}
+
 const setStatus = (msg, ok) => {
   formStatus.textContent = msg
   formStatus.className = `form-status ${ok ? 'ok' : 'err'}`
@@ -333,6 +350,7 @@ form.addEventListener('submit', async (e) => {
     return
   }
 
+  const source = getSource()
   submitBtn.disabled = true
   submitBtn.classList.add('sending')
   try {
@@ -340,12 +358,15 @@ form.addEventListener('submit', async (e) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
-        _subject: '[위코컴퍼니] 새 견적문의',
+        _subject: source.startsWith('브랜드가 될 가게')
+          ? '[브랜드가 될 가게] 새 컨설팅 문의'
+          : '[위코컴퍼니] 새 견적문의',
         _template: 'table',
         _captcha: 'false',
         이름: name,
         연락처: phone,
         유형: selectedType,
+        유입경로: source,
         개인정보동의: '동의',
         예산: form.budget.value.trim() || '미입력',
         문의내용: form.message.value.trim() || '미입력'

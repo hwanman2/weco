@@ -82,6 +82,29 @@
 })();
 </script>
 
+<!-- ===== 유입 경로 기록 =====
+     어디서 들어온 방문자인지 기억해 두었다가, 문의서를 제출하면
+     문의 메일에 '유입경로'로 함께 찍힙니다. 별도 계정이 필요 없습니다. -->
+<script>
+(function () {
+  var LABELS = { ig: '인스타그램', instagram: '인스타그램', kakao: '카카오톡',
+                 naver: '네이버', threads: '스레드', youtube: '유튜브' };
+  try {
+    var q = new URLSearchParams(location.search);
+    var src = q.get('utm_source');
+    var where;
+    if (src) {
+      where = LABELS[src.toLowerCase()] || src;
+    } else if (document.referrer) {
+      where = new URL(document.referrer).hostname;
+    } else {
+      where = '직접 접속';
+    }
+    sessionStorage.setItem('weco_source', '브랜드가 될 가게 페이지 · ' + where);
+  } catch (e) {}
+})();
+</script>
+
 <style>
 :root{
   --ink:#fbfbf9;         /* 웜 화이트 */
