@@ -54,6 +54,34 @@
 }
 </script>
 
+
+<!-- ===== 유입 추적 (Google Analytics 4) =====
+     analytics.google.com에서 속성을 만들면 'G-'로 시작하는 측정 ID가 나옵니다.
+     아래 GA_ID 따옴표 안에 그 ID만 붙여넣으면 바로 집계가 시작됩니다.
+     (비워두면 아무 코드도 로드되지 않습니다) -->
+<script>
+(function () {
+  var GA_ID = '';            // 예: 'G-AB12CD34EF'
+  if (!GA_ID) return;
+
+  var tag = document.createElement('script');
+  tag.async = true;
+  tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+  document.head.appendChild(tag);
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { dataLayer.push(arguments); };
+  gtag('js', new Date());
+  gtag('config', GA_ID);
+
+  // 문의 버튼 클릭을 전환으로 기록 — 방문자 대비 문의율을 볼 수 있습니다
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.link-btn.primary, .sticky .ask');
+    if (btn) gtag('event', 'inquiry_click', { location: btn.closest('.sticky') ? 'sticky_bar' : 'contact_section' });
+  });
+})();
+</script>
+
 <style>
 :root{
   --ink:#fbfbf9;         /* 웜 화이트 */
