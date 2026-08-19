@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://hwanman2.github.io/weco/</loc>
-    <lastmod>2026-06-11</lastmod>
+    <loc>https://mmp-main.github.io/weco/</loc>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://hwanman2.github.io/weco/consulting.html</loc>
-    <lastmod>2026-08-18</lastmod>
+    <loc>https://mmp-main.github.io/weco/consulting.html</loc>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <url><loc>https://hwanman2.github.io/weco/en.html</loc></url>
-  <url><loc>https://hwanman2.github.io/weco/vi.html</loc></url>
+  <url><loc>https://mmp-main.github.io/weco/en.html</loc></url>
+  <url><loc>https://mmp-main.github.io/weco/vi.html</loc></url>
 </urlset>
